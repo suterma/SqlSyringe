@@ -1,9 +1,10 @@
 # SqlSyringe
-SqlSyringe is a SQL database injection tool, for testing purposes. I built this a an example project for learning MVC core.
-
-Used as a middleware, it allows to deliberately execute SQL command onto a database, using a provided connection string.
 
 **USE WITH CAUTION, and for testing purposes only.**
+
+SqlSyringe is a SQL database injection tool, for testing purposes. Used as a middleware, it allows to deliberately execute SQL command onto a database, using a provided connection string.
+
+I built this a an example project for learning MVC core.
 
 ## Usage
 

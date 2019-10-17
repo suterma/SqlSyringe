@@ -29,7 +29,7 @@ This registers the middleware in the request pipeline, waiting to handle appropr
 
 To use the SqlSyringe on the running target, browse to the SqlSyringe injection page (https is required):
 
-    https://your.domain/syringe
+    https://your.domain/sql-syringe
     
 This triggers the middelware component, which then serves the injection page:    
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -47,6 +48,12 @@ namespace SqlSyringe.Patient
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+
+            //Enable SylSyringe from a specific IP only.
+            app.UseMiddleware<Syringe>(
+                new InjectionOptions {
+                    FromIp = IPAddress.Parse("::1")
+                });
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

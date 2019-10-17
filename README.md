@@ -1,4 +1,4 @@
-# SqlSyringe
+# SqlSyringe (alpha/pre-release status)
 
 **USE WITH CAUTION, and for testing purposes only.**
 

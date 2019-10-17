@@ -51,7 +51,8 @@ namespace SqlSyringe.Patient
 
             //Enable SylSyringe from a specific IP only.
             app.UseMiddleware<Syringe>(
-                new InjectionOptions {
+                new InjectionOptions
+                {
                     FromIp = IPAddress.Parse("::1")
                 });
 

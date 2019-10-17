@@ -6,12 +6,6 @@
 
   <ItemGroup>
     <None Remove="SyringeResult.html" />
-    <None Remove="Views\Syringe\About.cshtml" />
-    <None Remove="Views\Shared\_Layout.cshtml" />
-    <None Remove="Views\Syringe\SyringeCaution.cshtml" />
-    <None Remove="Views\Syringe\SyringeCaution.html" />
-    <None Remove="Views\_ViewImports.cshtml" />
-    <None Remove="Views\_ViewStart.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,30 +13,14 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyringeCaution.html">
+    <EmbeddedResource Include="SyringeIndex.html">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
-    <Content Include="Views\Syringe\About.cshtml">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Views\Syringe\SyringeCaution.cshtml">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Views\Shared\_Layout.cshtml">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Views\_ViewImports.cshtml">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Views\_ViewStart.cshtml">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" />
   </ItemGroup>
 
   <ItemGroup>

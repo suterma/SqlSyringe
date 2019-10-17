@@ -13,7 +13,7 @@ Used as a middleware, it allows to deliberately execute SQL command onto a datab
     <PackageProjectUrl>https://github.com/suterma/SqlSyringe</PackageProjectUrl>
     <RepositoryUrl>https://github.com/suterma/SqlSyringe</RepositoryUrl>
     <RepositoryType>GitHub</RepositoryType>
-    <PackageTags>SQL Injection Database seed maintenance test</PackageTags>
+    <PackageTags>SQL Injection Database Seed Test Data Maintenance</PackageTags>
     <PackageIconUrl>https://github.com/suterma/SqlSyringe/blob/master/SqlSyringe/icon.svg</PackageIconUrl>
   </PropertyGroup>
 

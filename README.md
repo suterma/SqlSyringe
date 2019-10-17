@@ -4,9 +4,15 @@
 
 SqlSyringe is a SQL database injection tool, for testing purposes. 
 
-Used as a middleware, it allows to deliberately execute SQL command onto a database, using a provided connection string. As minimal security measure, it requires the use of the https protocol and of a specified source IP address.
+Used as a middleware, it allows to deliberately execute SQL command onto a database, using a provided connection string. 
 
-I built this a an example project for learning MVC core.
+It uses some minimal security measures:
+
+  * A specific single source IP address must be configured and any request is checked against it.
+  * Only requests via HTTPS are accepted
+  * The connection string must be provided by the user and is never stored
+
+I built this as an example project for learning MVC core.
 
 ## Usage
 
@@ -17,7 +23,7 @@ In the target project, configure the SqlSyringe in Startup.cs as a middleware:
     app.UseMiddleware<SqlSyringe>("1.1.1.1");
 ```
 
-To use the Syringe, browse to the injection page (https is required):
+To use the SqlSyringe, browse to the injection page (https is required):
 
     https://your.domain/syringe
 

@@ -11,13 +11,13 @@ I built this a an example project for learning MVC core.
 In the target project, configure the SqlSyringe in Startup.cs as a middleware:
 
 ```csharp
-    //Enable SylSyringe from a specific IP only.
+    //Enable SylSyringe from a specific source IP only (will fail silently otherwise)
     app.UseMiddleware<SqlSyringe>("1.1.1.1");
 ```
 
-To use the Syringe, browse to the injection page:
+To use the Syringe, browse to the injection page (https is required):
 
-    http://your.domain/syringe
+    https://your.domain/syringe
 
 :todo: Add Image
 ![The SQL injection page of syringe](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "The SQL injection page of syringe")

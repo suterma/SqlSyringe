@@ -12,7 +12,7 @@ It uses some minimal security measures:
   * Only requests via HTTPS are accepted
   * The connection string must be provided by the user and is never stored
 
-I built this as an example project for learning MVC core.
+I built this as an example project for learning .NET core.
 
 ## Application
 

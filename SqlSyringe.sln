@@ -3,9 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2047
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlSyringe.Patient", "SqlSyringe.Patient\SqlSyringe.Patient.csproj", "{0E0FC422-A119-4502-8A09-E487448FC493}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlSyringe", "SqlSyringe\SqlSyringe.csproj", "{A0F28B1B-16AC-44C8-90E9-4B6DC57C99B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlSyringe", "SqlSyringe\SqlSyringe.csproj", "{A0F28B1B-16AC-44C8-90E9-4B6DC57C99B2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,10 +11,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0E0FC422-A119-4502-8A09-E487448FC493}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0E0FC422-A119-4502-8A09-E487448FC493}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0E0FC422-A119-4502-8A09-E487448FC493}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0E0FC422-A119-4502-8A09-E487448FC493}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A0F28B1B-16AC-44C8-90E9-4B6DC57C99B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A0F28B1B-16AC-44C8-90E9-4B6DC57C99B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A0F28B1B-16AC-44C8-90E9-4B6DC57C99B2}.Release|Any CPU.ActiveCfg = Release|Any CPU

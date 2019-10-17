@@ -14,6 +14,7 @@ Used as a middleware, it allows to deliberately execute SQL command onto a datab
     <RepositoryUrl>https://github.com/suterma/SqlSyringe</RepositoryUrl>
     <RepositoryType>GitHub</RepositoryType>
     <PackageTags>SQL Injection Database seed maintenance test</PackageTags>
+    <PackageIconUrl>https://github.com/suterma/SqlSyringe/blob/master/SqlSyringe/icon.svg</PackageIconUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -40,7 +41,7 @@ Used as a middleware, it allows to deliberately execute SQL command onto a datab
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.13" />
   </ItemGroup>
 
 </Project>

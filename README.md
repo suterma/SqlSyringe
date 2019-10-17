@@ -1,5 +1,9 @@
 # SqlSyringe (alpha/pre-release status)
 
+![Icon](https://raw.githubusercontent.com/suterma/SqlSyringe/master/SqlSyringe/icon.svg)
+
+<img src="https://raw.githubusercontent.com/suterma/SqlSyringe/master/SqlSyringe/icon.svg" alt="alt text" width="100" >
+
 **USE WITH CAUTION, and for testing purposes only.**
 
 SqlSyringe is a SQL database injection tool, for testing purposes. 

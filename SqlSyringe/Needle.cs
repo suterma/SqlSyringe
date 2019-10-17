@@ -17,9 +17,12 @@ using System.Data;
 using System.Data.SqlClient;
 
 namespace SqlSyringe {
+    /// <summary>
+    ///     The injection needle, to get and apply data.
+    /// </summary>
     public class Needle {
         /// <summary>
-        ///     Retrieved data using the specified Query selectCommand, using the connection string.
+        ///     Retrieve data using the specified Query selectCommand, using the connection string.
         /// </summary>
         /// <param name="connectionString">The connection string.</param>
         /// <param name="selectCommand">The select command.</param>

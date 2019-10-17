@@ -5,7 +5,7 @@ Used as a middleware, it allows to deliberately execute SQL command onto a datab
 
 *USE WITH CAUTION, and for testing purposes only.*
 
-# Usage
+## Usage
 
 In the target project, configure the SqlSyringe in Startup.cs as a middleware:
 
@@ -18,7 +18,7 @@ To use the Syringe, browse to the injection page:
 
 :todo: Add Image
 
-# Deploy on Azure
+## Deploy on Azure
 Use this button to automatically deploy this web app as your own Azure App
 
 <a href="https://azuredeploy.net/" target="_blank"><img src="http://azuredeploy.net/deploybutton.png"/></a>

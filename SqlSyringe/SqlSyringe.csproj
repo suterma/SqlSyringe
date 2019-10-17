@@ -41,7 +41,7 @@ Used as a middleware, it allows to deliberately execute SQL command onto a datab
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.13" />
+    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.7" />
   </ItemGroup>
 
 </Project>

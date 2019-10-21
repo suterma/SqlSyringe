@@ -15,6 +15,10 @@ Used as a middleware, it allows to deliberately execute SQL command onto a datab
     <RepositoryType>GitHub</RepositoryType>
     <PackageTags>SQL Injection Database Seed Test Data Maintenance</PackageTags>
     <PackageIconUrl>https://github.com/suterma/SqlSyringe/blob/master/SqlSyringe/icon.svg</PackageIconUrl>
+    <Version>1.0.1-alpha</Version>
+    <AssemblyVersion>1.0.1.0</AssemblyVersion>
+    <FileVersion>1.0.1.0</FileVersion>
+    <PackageReleaseNotes>This is a pre-release/alpha version.</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

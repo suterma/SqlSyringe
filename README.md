@@ -38,6 +38,9 @@ To use the SqlSyringe on the running target, browse to the SqlSyringe injection 
     
 This triggers the middelware component, which then serves the injection page:    
 
+<img src="https://raw.githubusercontent.com/suterma/SqlSyringe/master/doc/sql-syringe-input.PNG" alt="The SQL injection page of SqlSyringe" width="320">
+
+
 ![The SQL injection page of SqlSyringe](https://raw.githubusercontent.com/suterma/SqlSyringe/master/doc/sql-syringe-input.PNG "The SQL injection page of SqlSyringe" | width=48)
 
 On submit and after succesful injection, you get a result either with data or the rows affected:

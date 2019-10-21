@@ -22,7 +22,7 @@ In the target project, configure the SqlSyringe in Startup.cs as a middleware:
 
 ```csharp
     //Enable SylSyringe from a specific source IP only (will fail silently otherwise)
-    app.UseMiddleware<SqlSyringe>("1.1.1.1");
+    app.UseMiddleware<Syringe>("1.1.1.1");
 ```
 
 This registers the middleware in the request pipeline, waiting to handle appropriate requests.

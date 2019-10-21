@@ -38,14 +38,12 @@ To use the SqlSyringe on the running target, browse to the SqlSyringe injection 
     
 This triggers the middelware component, which then serves the injection page:    
 
+![The SQL injection page of SqlSyringe](https://raw.githubusercontent.com/suterma/SqlSyringe/master/doc/sql-syringe-input.PNG "The SQL injection page of SqlSyringe")
+
+On submit and after succesful injection, you get a result either with data or the rows affected:
+
 :todo: Add Image
-![The SQL injection page of syringe](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "The SQL injection page of syringe")
-
-On succesful injection, you get a result either with data or the rows affected:
-
-:todo: Add Image
-![The SQL injection page of syringe](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "The SQL injection page of syringe")
-
+![The output page of SqlSyringe](https://raw.githubusercontent.com/suterma/SqlSyringe/master/doc/sql-syringe-select-output.PNG "The ouput page of SqlSyringe")
 ## Deploy on Azure
 Use this button to automatically deploy this web app as your own Azure App
 

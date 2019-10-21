@@ -52,9 +52,5 @@ Use this button to automatically deploy this web app as your own Azure App
 
 <a href="https://azuredeploy.net/" target="_blank"><img src="http://azuredeploy.net/deploybutton.png"/></a>
 
-## Credits
-
- * The practice demo project is based on the [Contoso University example project by Microsoft](https://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/creating-an-entity-framework-data-model-for-an-asp-net-mvc-application) (Apache License Version 2.0 licensed)
-
 ## Differentiation
 Although named equally, this project is very different from the PHP project "SQL Syringe" by kkoivisto on https://sourceforge.net/projects/sqlsyringe/

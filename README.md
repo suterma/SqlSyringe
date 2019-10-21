@@ -47,3 +47,6 @@ On succesful injection, you get a result either with data or the rows affected:
 Use this button to automatically deploy this web app as your own Azure App
 
 <a href="https://azuredeploy.net/" target="_blank"><img src="http://azuredeploy.net/deploybutton.png"/></a>
+
+## Differentiation
+Although named equally, this project is very different from the PHP project "SQL Syringe" by kkoivisto on https://sourceforge.net/projects/sqlsyringe/

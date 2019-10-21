@@ -18,11 +18,14 @@ I built this as an example project for learning .NET core.
 
 ## Application
 
-In the target project, configure the SqlSyringe in Startup.cs as a middleware:
+In the target project, configure SqlSyringe in Startup.cs as a middleware:
 
 ```csharp
-    //Enable SylSyringe from a specific source IP only (will fail silently otherwise)
-    app.UseMiddleware<Syringe>("1.1.1.1");
+            //Enable SylSyringe from a specific source IP only (will pass over request otherwise)
+            app.UseMiddleware<Syringe>(new InjectionOptions()
+            {
+                FromIp = IPAddress.Parse("::1") //IPv6 localhost
+            });
 ```
 
 This registers the middleware in the request pipeline, waiting to handle appropriate requests.

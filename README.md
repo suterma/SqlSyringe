@@ -1,6 +1,6 @@
 # SqlSyringe (alpha/pre-release status)
 
-<img src="https://raw.githubusercontent.com/suterma/SqlSyringe/master/SqlSyringe/icon.gif" alt="icon" width="100" align="right">
+<img src="https://raw.githubusercontent.com/suterma/doc/master/SqlSyringe/icon.gif" alt="icon" width="100" align="right">
 
 **USE WITH CAUTION, and for testing purposes only.**
 

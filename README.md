@@ -24,7 +24,7 @@ In the target project, configure SqlSyringe in Startup.cs as a middleware:
             //Enable SylSyringe from a specific source IP only (will pass over request otherwise)
             app.UseMiddleware<Syringe>(new InjectionOptions()
             {
-                FromIp = IPAddress.Parse("::1") //IPv6 localhost
+                FromIp = IPAddress.Parse("::1") //Use your IP, e.g. ::1 is IPv6 localhost
             });
 ```
 

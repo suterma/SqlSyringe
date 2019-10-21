@@ -42,7 +42,7 @@ This triggers the middelware component, which then serves the injection page:
 
 On submit and after succesful injection, you get a result either with data or the rows affected:
 
-<img src="https://raw.githubusercontent.com/suterma/SqlSyringe/master/doc/doc/sql-syringe-select-output.PNG" alt="sql-syringe-select-output.PNG" width="320">
+<img src="https://raw.githubusercontent.com/suterma/SqlSyringe/master/doc/sql-syringe-select-output.PNG" alt="sql-syringe-select-output.PNG" width="320">
 
 ## Deploy on Azure
 Use this button to automatically deploy this web app as your own Azure App

@@ -40,13 +40,10 @@ This triggers the middelware component, which then serves the injection page:
 
 <img src="https://raw.githubusercontent.com/suterma/SqlSyringe/master/doc/sql-syringe-input.PNG" alt="The SQL injection page of SqlSyringe" width="320">
 
-
-![The SQL injection page of SqlSyringe](https://raw.githubusercontent.com/suterma/SqlSyringe/master/doc/sql-syringe-input.PNG "The SQL injection page of SqlSyringe" | width=48)
-
 On submit and after succesful injection, you get a result either with data or the rows affected:
 
-:todo: Add Image
-![The output page of SqlSyringe](https://raw.githubusercontent.com/suterma/SqlSyringe/master/doc/sql-syringe-select-output.PNG "The ouput page of SqlSyringe" | width=48)
+<img src="https://raw.githubusercontent.com/suterma/SqlSyringe/master/doc/doc/sql-syringe-select-output.PNG" alt="sql-syringe-select-output.PNG" width="320">
+
 ## Deploy on Azure
 Use this button to automatically deploy this web app as your own Azure App
 

@@ -44,6 +44,9 @@ On submit and after succesful injection, you get a result either with data or th
 
 <img src="https://raw.githubusercontent.com/suterma/SqlSyringe/master/doc/sql-syringe-select-output.PNG" alt="sql-syringe-select-output.PNG" width="480">
 
+## Demo
+To see SqlSyringe in action you may want to use the [SqlSyringe practice project](https://github.com/suterma/SqlSyringe-Practice)
+
 ## Deploy on Azure
 Use this button to automatically deploy this web app as your own Azure App
 

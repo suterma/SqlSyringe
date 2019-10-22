@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Threading.Tasks;
-#if NET45
-      //TODO
-#elif NETCOREAPP2_1
+#if NETCOREAPP2_1
 using Microsoft.AspNetCore.Http;
 #endif
 
@@ -20,7 +18,7 @@ namespace SqlSyringe.Standard {
         /// <summary>
         ///     The options
         /// </summary>
-        private readonly InjectionOptions _options;
+        private  InjectionOptions _options;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="Syringe" /> class.
@@ -99,7 +97,8 @@ namespace SqlSyringe.Standard {
                 context.Request.HttpContext.Request.HttpContext.Connection.RemoteIpAddress.Equals(_options.FromIp) &&
                 context.Request.Path.Value.EndsWith("sql-syringe");
         }
+  
+#endif 
     }
-#endif
 
 }

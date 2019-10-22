@@ -8,9 +8,12 @@ using Microsoft.AspNetCore.Http;
 #endif
 
 
+
 namespace SqlSyringe.Standard {
     /// <summary>The Syringe middleware</summary>
     public partial class Syringe {
+
+#if NETCOREAPP2_1
         /// <summary>
         /// Accepts the options or throws and Exception if not valid.
         /// </summary>
@@ -28,5 +31,6 @@ namespace SqlSyringe.Standard {
                 throw new ArgumentNullException(nameof(options), "The Syringe FromIp option is mandatory.");
             }
         }
+#endif
     }
 }

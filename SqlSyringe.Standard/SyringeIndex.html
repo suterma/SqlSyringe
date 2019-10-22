@@ -1,0 +1,53 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <title>SqlSyringe - Caution</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body class="bg-warning">
+<div class="container body-content">
+    <h1>SqlSyringe (alpha/pre-release status)</h1>
+    <span class="badge badge-danger"> USE WITH CAUTION, and for testing purposes only.</span>
+    <p><a href="https://github.com/suterma/SqlSyringe">SqlSyringe</a> is a SQL database injection tool, for testing purposes. It allows to deliberately execute SQL command onto a database, using a provided connection string.</p>
+
+    <hr/>
+
+    <form method="post">
+        <div class="form-group">
+            <label for="connectionstring">Connection String</label>
+            <input type="text" class="form-control" id="connectionstring" name="connectionstring" aria-describedby="connectionstringHelp" placeholder="Enter connection string"/>
+            <small id="connectionstringHelp" class="form-text text-muted">This connection string is used to connect to the database. It's only used once and not stored.</small>
+        </div>
+        <div class="form-group">
+            <label for="sqlcommand">SQL Command</label>
+            <textarea rows="12" class="form-control" id="sqlcommand" name="sqlcommand" aria-describedby="sqlcommandHelp" placeholder="Enter SQL command"></textarea>
+            <small id="sqlcommandHelp" class="form-text text-muted">The command to execute.</small>
+        </div>
+        <div class="form-group">
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="isquery" value="isquery" name="querytype" class="custom-control-input" checked>
+                <label class="custom-control-label" for="isquery">Query (shows data)</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="isnonquery" value="isnonquery" name="querytype" class="custom-control-input">
+                <label class="custom-control-label" for="isnonquery">Non-Query (shows rows affected)</label>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-danger">Submit to database!</button>
+    </form>
+
+    <hr/>
+
+    <footer>
+        <p>&copy; 2019 - <a href="https://github.com/suterma/SqlSyringe">SqlSyringe</a> by <a href="https://marcelsuter.ch">Marcel Suter</a>. MIT-Licensed.</p>
+    </footer>
+</div>
+</body>
+</html>

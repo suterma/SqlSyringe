@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Data;
 using System.Text;
 using System.Web;
@@ -31,6 +32,7 @@ namespace SqlSyringe.Standard
             HttpContext context = ((HttpApplication)source).Context;
 
             // Do something with context near the beginning of request processing.
+            Treat(context);
         }
 
 
@@ -52,7 +54,7 @@ namespace SqlSyringe.Standard
         }
 
         /// <summary>
-        ///     Invokes the creation asynchronously.
+        ///     Invokes the treatment of the request, if applicable.
         /// </summary>
         /// <param name="context">The context.</param>
         public void Treat(HttpContext context)
@@ -63,7 +65,6 @@ namespace SqlSyringe.Standard
                 {
                     //serve the empty form
                     string responseContent = Rendering.GetResourceText("SqlSyringe.Standard.SyringeIndex.html");
-
                     ResponseWrite(context, responseContent);
 
                 }
@@ -74,13 +75,10 @@ namespace SqlSyringe.Standard
                         if (string.IsNullOrEmpty(context.Request.ContentType)) throw new ArgumentException("HTTP request form has no content type.");
 
                         //get the form content
-                        var form = context.Request.Form;
+                        NameValueCollection form = context.Request.Form;
                         string connectionString = form["connectionstring"];
                         string sqlCommand = form["sqlcommand"];
-                        string isquery = form["isquery"];
-                        isquery = form["isnonquery"];
-                        isquery = form["querytype"].ToString();
-                        bool isQuery = isquery.Equals("isquery");
+                        //bool isQuery = form["querytype"].ToString().Equals("isquery");
 
                         //Apply the input
                         if (isQuery)

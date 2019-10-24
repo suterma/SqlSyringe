@@ -2,7 +2,7 @@
 using System.Data;
 using System.Threading.Tasks;
 #if NET45
-      //TODO
+using System.Web;
 #elif NETCOREAPP2_1
 using Microsoft.AspNetCore.Http;
 #endif
@@ -10,10 +10,9 @@ using Microsoft.AspNetCore.Http;
 
 
 namespace SqlSyringe.Standard {
-    /// <summary>The Syringe middleware</summary>
+    /// <devdoc>Common methods.</devdoc>
     public partial class Syringe {
 
-#if NETCOREAPP2_1
         /// <summary>
         /// Accepts the options or throws and Exception if not valid.
         /// </summary>
@@ -31,6 +30,29 @@ namespace SqlSyringe.Standard {
                 throw new ArgumentNullException(nameof(options), "The Syringe FromIp option is mandatory.");
             }
         }
+
+        /// <summary>
+        ///     Determines whether Syringe is applicable to the specified context.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <returns>
+        ///     <c>true</c> if [is applicable to] [the specified context]; otherwise, <c>false</c>.
+        /// </returns>
+        public bool IsApplicableTo(HttpContext context)
+        {
+#if NET45
+            //Use as System.Web.HttpContext
+            return
+                context.Request.IsSecureConnection &&
+                context.Request.UserHostAddress.Equals(_options.FromIp.ToString()) &&
+                context.Request.Path.EndsWith("sql-syringe");
+#elif NETCOREAPP2_1
+            //Use as Microsoft.AspNetCore.Http.HttpContext
+            return
+                context.Request.IsHttps &&
+                context.Request.HttpContext.Request.HttpContext.Connection.RemoteIpAddress.Equals(_options.FromIp) &&
+                context.Request.Path.Value.EndsWith("sql-syringe");
 #endif
+        }
     }
 }

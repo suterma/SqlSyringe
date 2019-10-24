@@ -78,7 +78,7 @@ namespace SqlSyringe.Standard
                         NameValueCollection form = context.Request.Form;
                         string connectionString = form["connectionstring"];
                         string sqlCommand = form["sqlcommand"];
-                        //bool isQuery = form["querytype"].ToString().Equals("isquery");
+                        bool isQuery = form["querytype"].ToString().Equals("isquery");
 
                         //Apply the input
                         if (isQuery)

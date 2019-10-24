@@ -1,83 +1,100 @@
-﻿using System.Threading.Tasks;
+﻿#if NET45
+using System;
+using System.Collections.Specialized;
+using System.Data;
 using System.Web;
 
 namespace SqlSyringe.Standard {
-    /// <summary>The Syringe middleware</summary>
-    public partial class Syringe {
-#if NET45
-        ///// <summary>
-        /////     The next delegate/middleware
-        ///// </summary>
+    /// <summary>The Syringe HTTP Module</summary>
+    /// <devdoc>This part implements the variant for .NET 4.5</devdoc>
+    public partial class Syringe : IHttpModule
+    {
+        private InjectionOptions _options;
 
-        //private readonly RequestDelegate _next;
+        public Syringe(InjectionOptions options)
+        {
+            AcceptOptions(options);
+        }
 
-        ///// <summary>
-        /////     The options
-        ///// </summary>
-        //private InjectionOptions _options;
+        public void Dispose()
+        {
+        }
 
-        ///// <summary>
-        /////     Initializes a new instance of the <see cref="Syringe" /> class.
-        ///// </summary>
-        ///// <param name="next">The next.</param>
-        ///// <param name="options">The options.</param>
-        //public Syringe(RequestDelegate next, InjectionOptions options) {
-        //    _next = next;
-        //    AcceptOptions(options);
-        //}
+        public void Init(HttpApplication application)
+        {
+            application.BeginRequest += (new EventHandler(this.Application_BeginRequest));
+        }
 
-        ///// <summary>
-        /////     Invokes the creation asynchronously.
-        ///// </summary>
-        ///// <param name="context">The context.</param>
-        //public async Task InvokeAsync(HttpContext context) {
-        //    if (IsApplicableTo(context)) {
-        //        if (context.Request.Method == HttpMethods.Get) {
-        //            //serve the empty form
-        //            string responseContent = Rendering.GetResourceText("SqlSyringe.SyringeIndex.html");
-        //            await context.Response.WriteAsync(responseContent);
-        //        }
-        //        else if (context.Request.Method == HttpMethods.Post) {
-        //            try {
-        //                if (!context.Request.HasFormContentType) throw new ArgumentException("HTTP request form has no content type.");
+        private void Application_BeginRequest(Object source, EventArgs e)
+        {
+            HttpContext context = ((HttpApplication)source).Context;
 
-        //                //get the form content
-        //                IFormCollection form = await context.Request.ReadFormAsync();
-        //                string connectionString = form["connectionstring"];
-        //                string sqlCommand = form["sqlcommand"];
-        //                string isquery = form["isquery"];
-        //                isquery = form["isnonquery"];
-        //                isquery = form["querytype"].ToString();
-        //                bool isQuery = isquery.Equals("isquery");
-       
+            //Handle the context, as Syringe, if applicable
+            Treat(context);
+        }
 
-        //                //Apply the input
-        //                if (isQuery) {
-        //                    //Read and serve data
-        //                    DataTable data = new Needle().Retrieve(connectionString, sqlCommand);
-        //                    string htmlData = Rendering.GetHtmlTableFrom(data);
-        //                    await context.Response.WriteAsync(Rendering.GetContentWith(htmlData));
-        //                }
-        //                else {
-        //                    //Execute and serve row count
-        //                    int affectedRowCount = new Needle().Inject(connectionString, sqlCommand);
-        //                    await context.Response.WriteAsync(Rendering.GetContentWith($"Number of Rows affected: {affectedRowCount}"));
-        //                }
-        //            }
-        //            catch (Exception ex) {
-        //                //serve the output with the Exception message
-        //                string responseContent = Rendering.GetResourceText("SqlSyringe.SyringeResult.html");
-        //                responseContent = responseContent.Replace("{{OUTPUT}}", ex.Message);
-        //                await context.Response.WriteAsync(responseContent);
-        //            }
-        //        }
-        //    }
-        //    else {
-        //        // Call the next delegate/middleware in the pipeline
-        //        await _next(context);
-        //    }
-        //}
 
-#endif
+
+
+        /// <summary>
+        ///     Invokes the treatment of the request, if applicable.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        public void Treat(HttpContext context)
+        {
+            if (IsApplicableTo(context))
+            {
+                if (context.Request.RequestType == "GET")
+                {
+                    //serve the empty form
+                    string responseContent = Rendering.GetResourceText("SqlSyringe.Standard.SyringeIndex.html");
+                    ResponseWrite(context, responseContent);
+
+                }
+                else if (context.Request.RequestType == "POST")
+                {
+                    try
+                    {
+                        if (string.IsNullOrEmpty(context.Request.ContentType)) throw new ArgumentException("HTTP request form has no content type.");
+
+                        //get the form content
+                        NameValueCollection form = context.Request.Form;
+                        string connectionString = form["connectionstring"];
+                        string sqlCommand = form["sqlcommand"];
+                        bool isQuery = form["querytype"].ToString().Equals("isquery");
+
+                        //Apply the input
+                        if (isQuery)
+                        {
+                            //Read and serve data
+                            DataTable data = new Needle().Retrieve(connectionString, sqlCommand);
+                            string htmlData = Rendering.GetHtmlTableFrom(data);
+                            ResponseWrite(context, Rendering.GetContentWith(htmlData));
+                        }
+                        else
+                        {
+                            //Execute and serve row count
+                            int affectedRowCount = new Needle().Inject(connectionString, sqlCommand);
+                            ResponseWrite(context, Rendering.GetContentWith($"Number of Rows affected: {affectedRowCount}"));
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        //serve the output with the Exception message
+                        string responseContent = Rendering.GetResourceText("SqlSyringe.Standard.SyringeResult.html");
+                        responseContent = responseContent.Replace("{{OUTPUT}}", ex.Message);
+                        ResponseWrite(context, responseContent);
+                    }
+                }
+            }
+        }
+
+        private void ResponseWrite(HttpContext context, string responseContent)
+        {
+            context.Response.Clear();
+            context.Response.Write(responseContent);
+            context.Response.End();
+        }
     }
 }
+#endif

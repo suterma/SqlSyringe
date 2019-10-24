@@ -1,15 +1,15 @@
-﻿using System;
+﻿#if NETCOREAPP2_1
+using System;
 using System.Data;
 using System.Threading.Tasks;
-#if NETCOREAPP2_1
 using Microsoft.AspNetCore.Http;
-#endif
 
 
 namespace SqlSyringe.Standard {
     /// <summary>The Syringe middleware</summary>
+    /// <devdoc>This part implements the variant for .NET Core 2.1</devdoc>
     public partial class Syringe {
-#if NETCOREAPP2_1
+
         /// <summary>
         ///     The next delegate/middleware
         /// </summary>
@@ -38,7 +38,7 @@ namespace SqlSyringe.Standard {
             if (IsApplicableTo(context)) {
                 if (context.Request.Method == HttpMethods.Get) {
                     //serve the empty form
-                    string responseContent = Rendering.GetResourceText("SqlSyringe.SyringeIndex.html");
+                    string responseContent = Rendering.GetResourceText("SqlSyringe.Standard.SyringeIndex.html");
                     await context.Response.WriteAsync(responseContent);
                 }
                 else if (context.Request.Method == HttpMethods.Post) {
@@ -49,10 +49,7 @@ namespace SqlSyringe.Standard {
                         IFormCollection form = await context.Request.ReadFormAsync();
                         string connectionString = form["connectionstring"];
                         string sqlCommand = form["sqlcommand"];
-                        string isquery = form["isquery"];
-                        isquery = form["isnonquery"];
-                        isquery = form["querytype"].ToString();
-                        bool isQuery = isquery.Equals("isquery");
+                        bool isQuery = form["querytype"].ToString().Equals("isquery");
        
 
                         //Apply the input
@@ -70,7 +67,7 @@ namespace SqlSyringe.Standard {
                     }
                     catch (Exception ex) {
                         //serve the output with the Exception message
-                        string responseContent = Rendering.GetResourceText("SqlSyringe.SyringeResult.html");
+                        string responseContent = Rendering.GetResourceText("SqlSyringe.Standard.SyringeResult.html");
                         responseContent = responseContent.Replace("{{OUTPUT}}", ex.Message);
                         await context.Response.WriteAsync(responseContent);
                     }
@@ -82,23 +79,7 @@ namespace SqlSyringe.Standard {
             }
         }
 
-
-
-        /// <summary>
-        ///     Determines whether Syringe is applicable to the specified context.
-        /// </summary>
-        /// <param name="context">The context.</param>
-        /// <returns>
-        ///     <c>true</c> if [is applicable to] [the specified context]; otherwise, <c>false</c>.
-        /// </returns>
-        private bool IsApplicableTo(HttpContext context) {
-            return
-                context.Request.IsHttps &&
-                context.Request.HttpContext.Request.HttpContext.Connection.RemoteIpAddress.Equals(_options.FromIp) &&
-                context.Request.Path.Value.EndsWith("sql-syringe");
-        }
   
-#endif 
     }
-
 }
+#endif 

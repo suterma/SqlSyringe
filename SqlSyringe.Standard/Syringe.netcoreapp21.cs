@@ -46,22 +46,18 @@ namespace SqlSyringe.Standard {
                         if (!context.Request.HasFormContentType) throw new ArgumentException("HTTP request form has no content type.");
 
                         //get the form content
-                        IFormCollection form = await context.Request.ReadFormAsync();
-                        string connectionString = form["connectionstring"];
-                        string sqlCommand = form["sqlcommand"];
-                        bool isQuery = form["querytype"].ToString().Equals("isquery");
-       
+                        InjectionRequest injection = GetInjectionRequest(context);      
 
                         //Apply the input
-                        if (isQuery) {
+                        if (injection.IsQuery) {
                             //Read and serve data
-                            DataTable data = new Needle().Retrieve(connectionString, sqlCommand);
+                            DataTable data = new Needle().Retrieve(injection.ConnectionString, injection.SqlCommand);
                             string htmlData = Rendering.GetHtmlTableFrom(data);
                             await context.Response.WriteAsync(Rendering.GetContentWith(htmlData));
                         }
                         else {
                             //Execute and serve row count
-                            int affectedRowCount = new Needle().Inject(connectionString, sqlCommand);
+                            int affectedRowCount = new Needle().Inject(injection.ConnectionString, injection.SqlCommand);
                             await context.Response.WriteAsync(Rendering.GetContentWith($"Number of Rows affected: {affectedRowCount}"));
                         }
                     }
@@ -79,7 +75,7 @@ namespace SqlSyringe.Standard {
             }
         }
 
-  
+
     }
 }
 #endif 

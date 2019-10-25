@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Specialized;
 #if NET45
 using System.Web;
 #elif NETCOREAPP2_1
@@ -48,6 +49,28 @@ namespace SqlSyringe.Standard {
                 context.Request.HttpContext.Request.HttpContext.Connection.RemoteIpAddress.Equals(_options.FromIp) &&
                 context.Request.Path.Value.EndsWith("sql-syringe");
 #endif
+        }
+
+        private InjectionRequest GetInjectionRequest(HttpContext context)
+        {
+#if NET45
+                        NameValueCollection form = context.Request.Form;
+                        string connectionString = form["connectionstring"];
+                        string sqlCommand = form["sqlcommand"];
+                        bool isQuery = form["querytype"].Equals("isquery");
+#elif NETCOREAPP2_1
+            IFormCollection form = context.Request.ReadFormAsync().Result;
+            string connectionString = form["connectionstring"];
+            string sqlCommand = form["sqlcommand"];
+            bool isQuery = form["querytype"].ToString().Equals("isquery");
+
+#endif
+            return new InjectionRequest
+            {
+                IsQuery = isQuery,
+                ConnectionString = connectionString,
+                SqlCommand = sqlCommand
+            };
         }
     }
 }

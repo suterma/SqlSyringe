@@ -2,7 +2,7 @@
 
 namespace SqlSyringe.Standard {
     /// <summary>
-    ///     Option for injecting SQL commands
+    ///     Options for injecting SQL commands
     /// </summary>
     public class InjectionOptions {
         /// <summary>

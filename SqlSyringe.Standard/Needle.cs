@@ -1,19 +1,4 @@
-﻿#region copyright
-
-// ----------------------------------------------------------------------------
-// Copyright 2019 by nowhow solutions AG.
-// 
-// Das vorliegende Dokument, einschliesslich aller seiner Teile, ist
-// urheberrechtlich geschützt. Jede Verwertung ist ohne Zustimmung der
-// nowhow solutions AG unzulässig. Dies gilt insbesondere für
-// Vervielfältigungen, die Einspeicherung und Verarbeitung in elektronischer
-// Form. Wird das Dokument einem Kunden im Rahmen der Projektarbeit zur Ansicht
-// übergeben ist jede weitere Verteilung durch den Kunden an Dritte untersagt.
-// ----------------------------------------------------------------------------
-
-#endregion
-
-using System.Data;
+﻿using System.Data;
 using System.Data.SqlClient;
 
 namespace SqlSyringe.Standard {

@@ -17,7 +17,7 @@ It uses some minimal security measures:
 I built this as an example project for learning .NET core.
 
 ## Application
-
+### .NET Core
 In the target project, configure SqlSyringe in Startup.cs as a middleware:
 
 ```csharp
@@ -27,8 +27,31 @@ In the target project, configure SqlSyringe in Startup.cs as a middleware:
                 FromIp = IPAddress.Parse("::1") //Use your IP, e.g. ::1 is IPv6 localhost
             });
 ```
+This registers the middleware in the ASP.NET Core request pipeline, waiting to handle appropriate requests.
 
-This registers the middleware in the request pipeline, waiting to handle appropriate requests.
+### .NET 4.5
+
+In the HttpApplication, create and register the SqlSyringe Module in the Global.asax.cs file:
+```csharp
+        /// <summary>
+        ///     The SQL syringe module, for use in this application.
+        /// </summary>
+        /// <devdoc>Provide the options from a config file as necessary.</devdoc>
+        private static readonly IHttpModule SqlSyringeModule = new Syringe(new InjectionOptions {
+            FromIp = IPAddress.Parse("::1")
+        });
+        
+        //...
+        
+        /// <summary>
+        ///     Executes custom initialization code after all event handler modules have been added.
+        /// </summary>
+        public override void Init() {
+            base.Init();
+            SqlSyringeModule.Init(this);
+        }
+```
+This registers the module in the ASP.NET request pipeline, waiting to handle appropriate requests.
 
 ## Usage
 

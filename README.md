@@ -2,11 +2,11 @@
 
 <img src="https://raw.githubusercontent.com/suterma/SqlSyringe/master/doc/icon.gif" alt="icon" width="100" align="right">
 
-**USE WITH CAUTION, and for testing purposes only.**
+**USE WITH CAUTION**
 
-SqlSyringe is a SQL database injection tool, for testing purposes. 
+SqlSyringe is a SQL database injection tool, for testing and administration purposes. It allows specific users to directly execute SQL command to a database.
 
-Used as a middleware in the ASP.NET request pipeline, it allows you to deliberately execute SQL command onto a database, using a provided connection string. 
+Implemented as a middleware component for the ASP.NET request pipeline, it serves specific HTML pages and code that executes SQL commands directly to a database.
 
 It uses some minimal security measures:
 
@@ -14,7 +14,7 @@ It uses some minimal security measures:
   * Only requests via HTTPS are accepted
   * The connection string must be provided by the user and is never stored
 
-I built this as an example project for learning .NET core.
+I built this as an example project for learning ASP.NET core.
 
 ## Application
 ### .NET Core

@@ -6,7 +6,7 @@ namespace SqlSyringe.Standard {
     /// </summary>
     public class InjectionOptions {
         /// <summary>
-        /// Gets or sets from ip.
+        /// Gets or sets the required origin IP for the access check.
         /// </summary>
         /// <value>
         /// From ip.

@@ -1,12 +1,14 @@
 ﻿using System.Net;
 
-namespace SqlSyringe {
+namespace SqlSyringe
+{
     /// <summary>
-    ///     Option for injecting SQL commands
+    ///     Options for injecting SQL commands
     /// </summary>
-    public class InjectionOptions {
+    public class InjectionOptions
+    {
         /// <summary>
-        /// Gets or sets from ip.
+        /// Gets or sets the required origin IP for the access check.
         /// </summary>
         /// <value>
         /// From ip.

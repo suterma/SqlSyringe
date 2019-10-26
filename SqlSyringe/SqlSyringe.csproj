@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+  <PropertyGroup>  
+    <TargetFrameworks>netcoreapp2.1;net45</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Authors>Marcel Suter</Authors>
@@ -20,16 +20,18 @@ Used as a middleware, it allows to deliberately execute SQL command onto a datab
     <FileVersion>1.0.1.0</FileVersion>
     <PackageReleaseNotes>This is a pre-release/alpha version.</PackageReleaseNotes>
   </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\netcoreapp2.1\SqlSyringe.xml</DocumentationFile>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\netcoreapp2.1\SqlSyringe.xml</DocumentationFile>
-  </PropertyGroup>
+  
+    <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.1'">
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions">
+      <Version>2.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="System.Data.SqlClient">
+      <Version>4.5.1</Version>
+    </PackageReference>
+  </ItemGroup>
 
   <ItemGroup>
+    <None Remove="SyringeIndex.html" />
     <None Remove="SyringeResult.html" />
   </ItemGroup>
 
@@ -44,8 +46,12 @@ Used as a middleware, it allows to deliberately execute SQL command onto a datab
     </EmbeddedResource>
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.13" />
+
+  
+    <ItemGroup>
+    <Reference Include="System.Web">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\System.Web.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

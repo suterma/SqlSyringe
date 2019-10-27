@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SqlSyringe</name>
+    </assembly>
+    <members>
+        <member name="T:SqlSyringe.InjectionOptions">
+            <summary>
+                Options for injecting SQL commands
+            </summary>
+        </member>
+        <member name="P:SqlSyringe.InjectionOptions.FromIp">
+            <summary>
+            Gets or sets the required origin IP for the access check.
+            </summary>
+            <value>
+            From ip.
+            </value>
+        </member>
+        <member name="T:SqlSyringe.InjectionRequest">
+            <summary>
+            Data about the injection request.
+            </summary>
+        </member>
+        <member name="T:SqlSyringe.Needle">
+            <summary>
+                The injection needle, to get and apply data.
+            </summary>
+        </member>
+        <member name="M:SqlSyringe.Needle.Retrieve(System.String,System.String)">
+            <summary>
+                Retrieve data using the specified Query selectCommand, using the connection string.
+            </summary>
+            <param name="connectionString">The connection string.</param>
+            <param name="selectCommand">The select command.</param>
+            <returns>
+                The data retrieved.
+            </returns>
+        </member>
+        <member name="M:SqlSyringe.Needle.Inject(System.String,System.String)">
+            <summary>
+                Injects the specified Non-Query sqlCommand, using the connection string.
+            </summary>
+            <param name="connectionString">The connection string.</param>
+            <param name="sqlCommand">The SQL command.</param>
+            <returns>The number of rows affected. </returns>
+        </member>
+        <member name="T:SqlSyringe.Rendering">
+            <summary>
+            Implements rendering functions for the HTML output.
+            </summary>
+        </member>
+        <member name="M:SqlSyringe.Rendering.GetHtmlTableFrom(System.Data.DataTable)">
+            <summary>
+                Gets the data as a HTML table with header and body for the columns and data rows.
+            </summary>
+            <param name="data">The data.</param>
+            <returns></returns>
+        </member>
+        <member name="M:SqlSyringe.Rendering.GetContentWith(System.String)">
+            <summary>
+                Gets the template with the specified message applied.
+            </summary>
+            <param name="message">The message.</param>
+        </member>
+        <member name="M:SqlSyringe.Rendering.GetResourceText(System.String)">
+            <summary>
+                Gets the resource text.
+            </summary>
+            <param name="resourceName">Name of the resource.</param>
+            <returns></returns>
+        </member>
+        <member name="T:SqlSyringe.Syringe">
+            <summary>
+                This part of the SQL syringe implements methods that are common among all .NET variants.
+            </summary>
+            <devdoc>Common methods.</devdoc>
+            <summary>The Syringe middleware</summary>
+            <devdoc>This part implements the variant for .NET Core 2.1</devdoc>
+        </member>
+        <member name="M:SqlSyringe.Syringe.AcceptOptions(SqlSyringe.InjectionOptions)">
+            <summary>
+                Accepts the options or throws and Exception if not valid.
+            </summary>
+            <param name="options">The options.</param>
+            <exception cref="T:System.ArgumentNullException">
+                options - The Syringe options are mandatory.
+                or
+                options - The Syringe FromIp option is mandatory.
+            </exception>
+        </member>
+        <member name="M:SqlSyringe.Syringe.IsApplicableTo(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+                Determines whether Syringe is applicable to the specified context.
+            </summary>
+            <param name="context">The context.</param>
+            <returns>
+                <c>true</c> if [is applicable to] [the specified context]; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="F:SqlSyringe.Syringe._next">
+            <summary>
+                The next delegate/middleware
+            </summary>
+        </member>
+        <member name="F:SqlSyringe.Syringe._options">
+            <summary>
+                The options
+            </summary>
+        </member>
+        <member name="M:SqlSyringe.Syringe.#ctor(Microsoft.AspNetCore.Http.RequestDelegate,SqlSyringe.InjectionOptions)">
+            <summary>
+                Initializes a new instance of the <see cref="T:SqlSyringe.Syringe" /> class.
+            </summary>
+            <param name="next">The next.</param>
+            <param name="options">The options.</param>
+        </member>
+        <member name="M:SqlSyringe.Syringe.InvokeAsync(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+                Invokes the creation asynchronously.
+            </summary>
+            <param name="context">The context.</param>
+        </member>
+    </members>
+</doc>

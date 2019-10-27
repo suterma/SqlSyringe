@@ -1,11 +1,11 @@
-﻿#if NETCOREAPP2_1
+﻿#if NETCOREAPP3_0
 using System;
 using System.Data;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
-
-namespace SqlSyringe.Standard {
+namespace SqlSyringe
+{
     /// <summary>The Syringe middleware</summary>
     /// <devdoc>This part implements the variant for .NET Core 2.1</devdoc>
     public partial class Syringe {
@@ -38,7 +38,7 @@ namespace SqlSyringe.Standard {
             if (IsApplicableTo(context)) {
                 if (context.Request.Method == HttpMethods.Get) {
                     //serve the empty form
-                    string responseContent = Rendering.GetResourceText("SqlSyringe.Standard.SyringeIndex.html");
+                    string responseContent = Rendering.GetResourceText("SqlSyringe.SyringeIndex.html");
                     await context.Response.WriteAsync(responseContent);
                 }
                 else if (context.Request.Method == HttpMethods.Post) {
@@ -63,7 +63,7 @@ namespace SqlSyringe.Standard {
                     }
                     catch (Exception ex) {
                         //serve the output with the Exception message
-                        string responseContent = Rendering.GetResourceText("SqlSyringe.Standard.SyringeResult.html");
+                        string responseContent = Rendering.GetResourceText("SqlSyringe.SyringeResult.html");
                         responseContent = responseContent.Replace("{{OUTPUT}}", ex.Message);
                         await context.Response.WriteAsync(responseContent);
                     }

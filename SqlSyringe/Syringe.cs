@@ -4,6 +4,8 @@ using System.Collections.Specialized;
 using System.Web;
 #elif NETCOREAPP2_1
 using Microsoft.AspNetCore.Http;
+#elif NETCOREAPP3_0
+using Microsoft.AspNetCore.Http;
 #endif
 
 
@@ -49,6 +51,12 @@ namespace SqlSyringe
                 context.Request.IsHttps &&
                 context.Request.HttpContext.Request.HttpContext.Connection.RemoteIpAddress.Equals(_options.FromIp) &&
                 context.Request.Path.Value.EndsWith("sql-syringe");
+#elif NETCOREAPP3_0
+            //Use as Microsoft.AspNetCore.Http.HttpContext
+            return
+                context.Request.IsHttps &&
+                context.Request.HttpContext.Request.HttpContext.Connection.RemoteIpAddress.Equals(_options.FromIp) &&
+                context.Request.Path.Value.EndsWith("sql-syringe");
 #endif
         }
 
@@ -64,7 +72,11 @@ namespace SqlSyringe
             string connectionString = form["connectionstring"];
             string sqlCommand = form["sqlcommand"];
             bool isQuery = form["querytype"].ToString().Equals("isquery");
-
+#elif NETCOREAPP3_0
+            IFormCollection form = context.Request.ReadFormAsync().Result;
+            string connectionString = form["connectionstring"];
+            string sqlCommand = form["sqlcommand"];
+            bool isQuery = form["querytype"].ToString().Equals("isquery");
 #endif
             return new InjectionRequest
             {

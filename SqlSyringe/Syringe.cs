@@ -56,14 +56,14 @@ namespace SqlSyringe {
             string path = context.Request.Path;
 #endif
             isFromIpMatch = fromIp.Equals(_options.FromIp);
-            isPathMatch = path.EndsWith("sql-syringe");
+            isPathMatch = path.Equals(_options.UrlSlug);
 
-            Debug.Write($"Request with https: '{isHttps}', from IP: '{fromIp}', to path: '{path}'; ");
+            Debug.Write($"Request with https: '{isHttps}', from IP: '{fromIp}', to path: '{path}';");
 
             bool isApplicable = isHttps && isFromIpMatch && isPathMatch;
 
             if (!isApplicable) {
-                Debug.Write(" is not applicable because:");
+                Debug.Write(" not applicable because:");
 
                 //Write the reason
                 if (!isHttps) {
@@ -71,14 +71,14 @@ namespace SqlSyringe {
                 }
 
                 if (!isFromIpMatch) {
-                    Debug.Write($" Origin IP '{fromIp}' must match configuration.");
+                    Debug.Write($" Origin IP must match configuration.");
                 }
 
                 if (!isPathMatch) {
-                    Debug.Write($" Path '{path}' must match configuration.");
+                    Debug.Write($" Path must match configuration.");
                 }
             } else {
-                Debug.Write($" is applicable.");
+                Debug.Write($" applicable.");
             }
 
             Debug.WriteLine(string.Empty);
@@ -118,7 +118,7 @@ namespace SqlSyringe {
             string sqlCommand = form["sqlcommand"];
             bool isQuery = form["querytype"].ToString().Equals("isquery");
 #endif
-            var injection = new InjectionRequest {
+            InjectionRequest injection = new InjectionRequest {
                 IsQuery = isQuery,
                 ConnectionString = connectionString,
                 SqlCommand = sqlCommand

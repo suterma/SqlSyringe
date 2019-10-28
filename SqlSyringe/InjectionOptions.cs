@@ -16,5 +16,14 @@ namespace SqlSyringe {
         /// </summary>
         /// <value>From ip.</value>
         public IPAddress FromIp { get; set; }
+
+        /// <summary>
+        /// Gets or sets the URL slug, which triggers SQL Syringe.
+        /// </summary>
+        /// <remarks>Default is "/sql-syringe"</remarks>
+        /// <value>
+        /// The URL slug.
+        /// </value>
+        public string UrlSlug { get; set; } = "/sql-syringe";
     }
 }

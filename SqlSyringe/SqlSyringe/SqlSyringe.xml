@@ -13,35 +13,31 @@
             </summary>
             <value>From ip.</value>
         </member>
-        <member name="T:SqlSyringe.InjectionRequest">
+        <member name="P:SqlSyringe.InjectionOptions.UrlSlug">
             <summary>
-            Data about the injection request.
+            Gets or sets the URL slug, which triggers SQL Syringe.
             </summary>
+            <remarks>Default is "/sql-syringe"</remarks>
+            <value>
+            The URL slug.
+            </value>
+        </member>
+        <member name="T:SqlSyringe.InjectionRequest">
+            <summary>Data about the injection request.</summary>
         </member>
         <member name="T:SqlSyringe.Needle">
-            <summary>
-                The injection needle, to apply SQL commands.
-            </summary>
+            <summary>The injection needle, to apply SQL commands.</summary>
         </member>
         <member name="F:SqlSyringe.Needle._connectionString">
-            <summary>
-            The connection string
-            </summary>
+            <summary>The connection string</summary>
         </member>
         <member name="M:SqlSyringe.Needle.#ctor(System.String)">
             <summary>
-            Initializes a new instance of the <see cref="T:SqlSyringe.Needle"/> class.
+                Initializes a new instance of the <see cref="T:SqlSyringe.Needle" /> class.
             </summary>
-            <param name="connectionString">The connection string to use for later applications.</param>
-        </member>
-        <member name="M:SqlSyringe.Needle.Retrieve(System.String)">
-            <summary>
-                Retrieve data using the specified Query selectCommand, using the connection string.
-            </summary>
-            <param name="selectCommand">The select command.</param>
-            <returns>
-                The data retrieved.
-            </returns>
+            <param name="connectionString">
+                The connection string to use for later applications.
+            </param>
         </member>
         <member name="M:SqlSyringe.Needle.Inject(System.String)">
             <summary>
@@ -50,10 +46,23 @@
             <param name="sqlCommand">The SQL command.</param>
             <returns>The number of rows affected. </returns>
         </member>
+        <member name="M:SqlSyringe.Needle.Retrieve(System.String)">
+            <summary>
+                Retrieve data using the specified Query selectCommand, using the connection string.
+            </summary>
+            <param name="selectCommand">The select command.</param>
+            <returns>The data retrieved.</returns>
+        </member>
         <member name="T:SqlSyringe.Rendering">
             <summary>
-            Implements rendering functions for the HTML output.
+                Implements rendering functions for the HTML output.
             </summary>
+        </member>
+        <member name="M:SqlSyringe.Rendering.GetContentWith(System.String)">
+            <summary>
+                Gets the template with the specified message applied.
+            </summary>
+            <param name="message">The message.</param>
         </member>
         <member name="M:SqlSyringe.Rendering.GetHtmlTableFrom(System.Data.DataTable)">
             <summary>
@@ -62,16 +71,8 @@
             <param name="data">The data.</param>
             <returns></returns>
         </member>
-        <member name="M:SqlSyringe.Rendering.GetContentWith(System.String)">
-            <summary>
-                Gets the template with the specified message applied.
-            </summary>
-            <param name="message">The message.</param>
-        </member>
         <member name="M:SqlSyringe.Rendering.GetResourceText(System.String)">
-            <summary>
-                Gets the resource text.
-            </summary>
+            <summary>Gets the resource text.</summary>
             <param name="resourceName">Name of the resource.</param>
             <returns></returns>
         </member>
@@ -83,17 +84,6 @@
             <summary>The Syringe middleware</summary>
             <devdoc>This part implements the variant for .NET Core 2.1</devdoc>
         </member>
-        <member name="M:SqlSyringe.Syringe.AcceptOptions(SqlSyringe.InjectionOptions)">
-            <summary>
-                Accepts the options or throws and Exception if not valid.
-            </summary>
-            <param name="options">The options.</param>
-            <exception cref="T:System.ArgumentNullException">
-                options - The Syringe options are mandatory.
-                or
-                options - The Syringe FromIp option is mandatory.
-            </exception>
-        </member>
         <member name="M:SqlSyringe.Syringe.IsApplicableTo(Microsoft.AspNetCore.Http.HttpContext)">
             <summary>
                 Determines whether Syringe is applicable to the specified context.
@@ -102,6 +92,15 @@
             <returns>
                 <c>true</c> if [is applicable to] [the specified context]; otherwise, <c>false</c>.
             </returns>
+        </member>
+        <member name="M:SqlSyringe.Syringe.AcceptOptions(SqlSyringe.InjectionOptions)">
+            <summary>
+                Accepts the options or throws and Exception if not valid.
+            </summary>
+            <param name="options">The options.</param>
+            <exception cref="T:System.ArgumentNullException">
+                options - The Syringe options are mandatory. or options - The Syringe FromIp option is mandatory.
+            </exception>
         </member>
         <member name="F:SqlSyringe.Syringe._next">
             <summary>

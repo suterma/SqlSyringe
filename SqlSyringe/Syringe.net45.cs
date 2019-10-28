@@ -32,7 +32,6 @@ namespace SqlSyringe {
             Treat(context);
         }
 
-
         /// <summary>
         ///     Invokes the treatment of the request, if applicable.
         /// </summary>
@@ -51,17 +50,18 @@ namespace SqlSyringe {
                         if (string.IsNullOrEmpty(context.Request.ContentType)) throw new ArgumentException("HTTP request form has no content type.");
 
                         InjectionRequest injection = GetInjectionRequest(context);
+                        Needle needle = new Needle(injection.ConnectionString);
 
                         //Apply the input
                         if (injection.IsQuery) {
                             //Read and serve data
-                            DataTable data = new Needle().Retrieve(injection.ConnectionString, injection.SqlCommand);
+                            DataTable data = needle.Retrieve(injection.SqlCommand);
                             string htmlData = Rendering.GetHtmlTableFrom(data);
                             ResponseWrite(context, Rendering.GetContentWith(htmlData));
                         }
                         else {
                             //Execute and serve row count
-                            int affectedRowCount = new Needle().Inject(injection.ConnectionString, injection.SqlCommand);
+                            int affectedRowCount = needle.Inject(injection.SqlCommand);
                             ResponseWrite(context, Rendering.GetContentWith($"Number of Rows affected: {affectedRowCount}"));
                         }
                     }

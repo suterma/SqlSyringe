@@ -25,5 +25,23 @@ namespace SqlSyringe {
         /// The URL slug.
         /// </value>
         public string UrlSlug { get; set; } = "/sql-syringe";
+
+        /// <summary>
+        /// Gets or sets connection string to access the target database.
+        /// </summary>
+        /// <remarks>If not provided here, the user must provide it in the injection request.</remarks>
+        /// <value>
+        /// The database connection string.
+        /// </value>
+        public string ConnectionString { get; set; }
+
+        /// <summary>
+        /// Determines whether the connection string is provided.
+        /// </summary>
+        /// <remarks>If not provided here, the user must provide it in the injection request.</remarks>
+        /// <value>
+        /// Whether the connection string is provided here.
+        /// </value>
+        public bool HasConnectionString => !string.IsNullOrEmpty(ConnectionString);
     }
 }

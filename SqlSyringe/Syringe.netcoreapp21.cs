@@ -49,6 +49,7 @@ namespace SqlSyringe
                 if (context.Request.Method == HttpMethods.Get) {
                     //serve the empty form
                     string responseContent = Rendering.GetResourceText("SqlSyringe.SyringeIndex.html");
+                    responseContent = responseContent.Replace("{{CONNECTIONSTRING-INPUT-DISPLAY}}", _options.HasConnectionString ? "none": "block");
                     await context.Response.WriteAsync(responseContent);
                 }
                 else if (context.Request.Method == HttpMethods.Post) {
@@ -56,7 +57,7 @@ namespace SqlSyringe
                         Trace.WriteLine("Processing the SQL Syringe query request");
                         if (string.IsNullOrEmpty(context.Request.ContentType)) throw new ArgumentException("HTTP request form has no content type.");
 
-                        InjectionRequest injection = GetInjectionRequest(context);
+                        InjectionRequest injection = GetInjectionRequest(context, _options);
                         Needle needle = new Needle(injection.ConnectionString);
 
                         //Apply the input

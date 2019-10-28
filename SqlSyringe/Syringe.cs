@@ -93,7 +93,7 @@ namespace SqlSyringe {
         ///     options - The Syringe options are mandatory. or options - The Syringe FromIp option is mandatory.
         /// </exception>
         private void AcceptOptions(InjectionOptions options) {
-            Trace.WriteLine($"Accepting the following options: {options.FromIp}");
+            Trace.WriteLine($"Accepting the following options: source IP: {options.FromIp}, URL slug: {options.UrlSlug}, has connection string: {options.HasConnectionString}");
             _options = options ?? throw new ArgumentNullException(nameof(options), "The Syringe options are mandatory.");
 
             if (options.FromIp == null) {
@@ -101,23 +101,28 @@ namespace SqlSyringe {
             }
         }
 
-        private InjectionRequest GetInjectionRequest(HttpContext context) {
+        private InjectionRequest GetInjectionRequest(HttpContext context, InjectionOptions options) {
 #if NET45
             NameValueCollection form = context.Request.Form;
-            string connectionString = form["connectionstring"];
+            string formConnectionString = form["connectionstring"];
             string sqlCommand = form["sqlcommand"];
             bool isQuery = form["querytype"].Equals("isquery");
 #elif NETCOREAPP2_1
             IFormCollection form = context.Request.ReadFormAsync().Result;
-            string connectionString = form["connectionstring"];
+            string formConnectionString = form["connectionstring"];
             string sqlCommand = form["sqlcommand"];
             bool isQuery = form["querytype"].ToString().Equals("isquery");
 #elif NETCOREAPP3_0
             IFormCollection form = context.Request.ReadFormAsync().Result;
-            string connectionString = form["connectionstring"];
+            string formConnectionString = form["connectionstring"];
             string sqlCommand = form["sqlcommand"];
             bool isQuery = form["querytype"].ToString().Equals("isquery");
 #endif
+
+            //Choose the connection string source (form overrides, if available)
+            string connectionString = string.IsNullOrEmpty(formConnectionString) ? options.ConnectionString : formConnectionString;
+
+            //Create the injection
             InjectionRequest injection = new InjectionRequest {
                 IsQuery = isQuery,
                 ConnectionString = connectionString,

@@ -44,6 +44,7 @@ namespace SqlSyringe {
                 if (context.Request.RequestType == "GET") {
                     Trace.WriteLine("Serving the empty SQL Syringe form");
                     string responseContent = Rendering.GetResourceText("SqlSyringe.SyringeIndex.html");
+                    responseContent = responseContent.Replace("{{CONNECTIONSTRING-INPUT-DISPLAY}}", _options.HasConnectionString ? "none": "block");
                     ResponseWrite(context, responseContent);
                 } else if (context.Request.RequestType == "POST") {
                     try {
@@ -52,7 +53,7 @@ namespace SqlSyringe {
                             throw new ArgumentException("HTTP request form has no content type.");
                         }
 
-                        InjectionRequest injection = GetInjectionRequest(context);
+                        InjectionRequest injection = GetInjectionRequest(context, _options);
                         Needle needle = new Needle(injection.ConnectionString);
 
                         //Apply the input
@@ -66,7 +67,12 @@ namespace SqlSyringe {
                             int affectedRowCount = needle.Inject(injection.SqlCommand);
                             ResponseWrite(context, Rendering.GetContentWith($"Number of Rows affected: {affectedRowCount}"));
                         }
-                    } catch (Exception ex) {
+                    }
+                    catch (System.Threading.ThreadAbortException)
+                    {
+                        //do not handle ThreadAbortException here, because the response just was properly ended
+                    }
+                    catch (Exception ex) {
                         //serve the output with the Exception message
                         string responseContent = Rendering.GetResourceText("SqlSyringe.SyringeResult.html");
                         responseContent = responseContent.Replace("{{OUTPUT}}", ex.Message);
@@ -86,6 +92,7 @@ namespace SqlSyringe {
         private void ResponseWrite(HttpContext context, string responseContent) {
             context.Response.Clear();
             context.Response.Write(responseContent);
+            context.Response.Flush();
             context.Response.End();
         }
     }

@@ -23,11 +23,19 @@ Implemented as a middleware component for the ASP.NET request pipeline, it serve
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netcoreapp2.1|AnyCPU'">
-    <DocumentationFile>C:\Users\marcel\Documents\GitHub\SqlSyringe\SqlSyringe\SqlSyringe.xml</DocumentationFile>
+    <DocumentationFile>.\SqlSyringe\SqlSyringe.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp2.1|AnyCPU'">
-    <DocumentationFile>C:\Users\marcel\Documents\GitHub\SqlSyringe\SqlSyringe\SqlSyringe.xml</DocumentationFile>
+    <DocumentationFile>.\SqlSyringe\SqlSyringe.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netcoreapp3.0|AnyCPU'">
+    <DocumentationFile>.\SqlSyringe\SqlSyringe.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp3.0|AnyCPU'">
+    <DocumentationFile>.\SqlSyringe\SqlSyringe.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.0'">

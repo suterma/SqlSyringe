@@ -1,6 +1,7 @@
 ﻿#if NETCOREAPP3_0
 using System;
 using System.Data;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
@@ -43,10 +44,10 @@ namespace SqlSyringe
                 }
                 else if (context.Request.Method == HttpMethods.Post) {
                     try {
-                        if (!context.Request.HasFormContentType) throw new ArgumentException("HTTP request form has no content type.");
+                        Trace.WriteLine("Processing the SQL Syringe query request");
+                        if (string.IsNullOrEmpty(context.Request.ContentType)) throw new ArgumentException("HTTP request form has no content type.");
 
-                        //get the form content
-                        InjectionRequest injection = GetInjectionRequest(context);      
+                        InjectionRequest injection = GetInjectionRequest(context);
 
                         //Apply the input
                         if (injection.IsQuery) {

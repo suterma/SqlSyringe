@@ -1,5 +1,6 @@
 ﻿using System.Collections.Specialized;
 using System.Data;
+using System.Diagnostics;
 #if NET45
 using System;
 using System.Web;
@@ -19,13 +20,15 @@ namespace SqlSyringe {
         }
 
         public void Init(HttpApplication application) {
+            Trace.WriteLine("Initializing the SQL Syringe .NET 4.5 module...");
             application.BeginRequest += Application_BeginRequest;
+            Trace.WriteLine("SQL Syringe .NET 4.5 module initialization done.");
         }
 
         private void Application_BeginRequest(object source, EventArgs e) {
             HttpContext context = ((HttpApplication) source).Context;
 
-            //Handle the context, as Syringe, if applicable
+            //Handle the context, if applicable
             Treat(context);
         }
 
@@ -37,15 +40,16 @@ namespace SqlSyringe {
         public void Treat(HttpContext context) {
             if (IsApplicableTo(context)) {
                 if (context.Request.RequestType == "GET") {
-                    //serve the empty form
+                    Trace.WriteLine("Serving the empty SQL Syringe form");
                     string responseContent = Rendering.GetResourceText("SqlSyringe.SyringeIndex.html");
                     ResponseWrite(context, responseContent);
                 }
                 else if (context.Request.RequestType == "POST") {
-                    try {
+                    try
+                    {
+                        Trace.WriteLine("Processing the SQL Syringe query request");
                         if (string.IsNullOrEmpty(context.Request.ContentType)) throw new ArgumentException("HTTP request form has no content type.");
 
-                        //get the form content
                         InjectionRequest injection = GetInjectionRequest(context);
 
                         //Apply the input

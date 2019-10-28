@@ -1,4 +1,11 @@
-﻿
+﻿#region copyright
+
+// ----------------------------------------------------------------------------
+// Copyright 2019 by Marcel Suter (mail@marcelsuter.ch).
+// ----------------------------------------------------------------------------
+
+#endregion
+
 using System.Net;
 
 namespace SqlSyringe {

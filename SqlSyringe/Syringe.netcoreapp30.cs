@@ -1,4 +1,12 @@
-﻿#if NETCOREAPP3_0
+﻿#region copyright
+
+// ----------------------------------------------------------------------------
+// Copyright 2019 by Marcel Suter (mail@marcelsuter.ch).
+// ----------------------------------------------------------------------------
+
+#endregion
+
+#if NETCOREAPP3_0
 using System;
 using System.Data;
 using System.Diagnostics;
@@ -76,8 +84,6 @@ namespace SqlSyringe
                 await _next(context);
             }
         }
-
-
     }
 }
-#endif 
+#endif

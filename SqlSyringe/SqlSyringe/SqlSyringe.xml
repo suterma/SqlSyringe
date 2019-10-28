@@ -5,17 +5,13 @@
     </assembly>
     <members>
         <member name="T:SqlSyringe.InjectionOptions">
-            <summary>
-                Options for injecting SQL commands
-            </summary>
+            <summary>Options for injecting SQL commands</summary>
         </member>
         <member name="P:SqlSyringe.InjectionOptions.FromIp">
             <summary>
-            Gets or sets the required origin IP for the access check.
+                Gets or sets the required origin IP for the access check.
             </summary>
-            <value>
-            From ip.
-            </value>
+            <value>From ip.</value>
         </member>
         <member name="T:SqlSyringe.InjectionRequest">
             <summary>
@@ -24,24 +20,33 @@
         </member>
         <member name="T:SqlSyringe.Needle">
             <summary>
-                The injection needle, to get and apply data.
+                The injection needle, to apply SQL commands.
             </summary>
         </member>
-        <member name="M:SqlSyringe.Needle.Retrieve(System.String,System.String)">
+        <member name="F:SqlSyringe.Needle._connectionString">
+            <summary>
+            The connection string
+            </summary>
+        </member>
+        <member name="M:SqlSyringe.Needle.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:SqlSyringe.Needle"/> class.
+            </summary>
+            <param name="connectionString">The connection string to use for later applications.</param>
+        </member>
+        <member name="M:SqlSyringe.Needle.Retrieve(System.String)">
             <summary>
                 Retrieve data using the specified Query selectCommand, using the connection string.
             </summary>
-            <param name="connectionString">The connection string.</param>
             <param name="selectCommand">The select command.</param>
             <returns>
                 The data retrieved.
             </returns>
         </member>
-        <member name="M:SqlSyringe.Needle.Inject(System.String,System.String)">
+        <member name="M:SqlSyringe.Needle.Inject(System.String)">
             <summary>
                 Injects the specified Non-Query sqlCommand, using the connection string.
             </summary>
-            <param name="connectionString">The connection string.</param>
             <param name="sqlCommand">The SQL command.</param>
             <returns>The number of rows affected. </returns>
         </member>

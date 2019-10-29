@@ -143,5 +143,26 @@
             </summary>
             <param name="context">The context.</param>
         </member>
+        <member name="M:SqlSyringe.Syringe.ResponseWrite(Microsoft.AspNetCore.Http.HttpContext,System.String)">
+            <summary>
+            Writes a content to the context's response.
+            </summary>
+            <param name="context"></param>
+            <param name="responseContent"></param>
+        </member>
+        <member name="M:SqlSyringe.Syringe.IsGetRequest(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Determines, whether this is a GET request.
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SqlSyringe.Syringe.IsPostRequest(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Determines, whether this is a POST request.
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>

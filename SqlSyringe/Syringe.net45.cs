@@ -41,45 +41,19 @@ namespace SqlSyringe {
         /// <param name="context">The context.</param>
         public void Treat(HttpContext context) {
             if (IsApplicableTo(context)) {
-                if (context.Request.RequestType == "GET") {
-                    Trace.WriteLine("Serving the empty SQL Syringe form");
-                    string responseContent = Rendering.GetResourceText("SqlSyringe.SyringeIndex.html");
-                    responseContent = responseContent.Replace("{{CONNECTIONSTRING-INPUT-DISPLAY}}", _options.HasConnectionString ? "none": "block");
-                    ResponseWrite(context, responseContent);
-                } else if (context.Request.RequestType == "POST") {
-                    try {
-                        Trace.WriteLine("Processing the SQL Syringe query request");
-                        if (string.IsNullOrEmpty(context.Request.ContentType)) {
-                            throw new ArgumentException("HTTP request form has no content type.");
-                        }
-
-                        InjectionRequest injection = GetInjectionRequest(context, _options);
-                        Needle needle = new Needle(injection.ConnectionString);
-
-                        //Apply the input
-                        if (injection.IsQuery) {
-                            //Read and serve data
-                            DataTable data = needle.Retrieve(injection.SqlCommand);
-                            string htmlData = Rendering.GetHtmlTableFrom(data);
-                            ResponseWrite(context, Rendering.GetContentWith(htmlData));
-                        } else {
-                            //Execute and serve row count
-                            int affectedRowCount = needle.Inject(injection.SqlCommand);
-                            ResponseWrite(context, Rendering.GetContentWith($"Number of Rows affected: {affectedRowCount}"));
-                        }
-                    }
-                    catch (System.Threading.ThreadAbortException)
-                    {
-                        //do not handle ThreadAbortException here, because the response just was properly ended
-                    }
-                    catch (Exception ex) {
-                        //serve the output with the Exception message
-                        string responseContent = Rendering.GetResourceText("SqlSyringe.SyringeResult.html");
-                        responseContent = responseContent.Replace("{{OUTPUT}}", ex.Message);
-                        ResponseWrite(context, responseContent);
-                    }
-                }
+                ApplyTo(context);
             }
+        }
+
+
+        /// <summary>
+        /// Determines, whether this is a POST request.
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        private bool IsPostRequest(HttpContext context)
+        {
+            return context.Request.RequestType == "POST";
         }
 
         private void Application_BeginRequest(object source, EventArgs e) {
@@ -89,11 +63,25 @@ namespace SqlSyringe {
             Treat(context);
         }
 
+        /// <summary>
+        /// Writes a content to the context's response.
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="responseContent"></param>
         private void ResponseWrite(HttpContext context, string responseContent) {
             context.Response.Clear();
             context.Response.Write(responseContent);
             context.Response.Flush();
             context.Response.End();
+        }
+        /// <summary>
+        /// Determines, whether this is a GET request.
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        private bool IsGetRequest(HttpContext context)
+        {
+            return context.Request.RequestType == "GET";
         }
     }
 }

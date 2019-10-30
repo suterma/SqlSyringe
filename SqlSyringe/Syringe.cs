@@ -15,9 +15,7 @@ using System.Threading;
 #if NET45
 using System.Web;
 
-#elif NETCOREAPP2_1
-using Microsoft.AspNetCore.Http;
-#elif NETCOREAPP3_0
+#elif (NETCOREAPP2_1 || NETCOREAPP3_0)
 using Microsoft.AspNetCore.Http;
 #endif
 
@@ -45,12 +43,7 @@ namespace SqlSyringe {
             isHttps = context.Request.IsSecureConnection;
             IPAddress fromIp = IPAddress.Parse(context.Request.UserHostAddress);
             string path = context.Request.Path;
-#elif NETCOREAPP2_1
-            //Use as Microsoft.AspNetCore.Http.HttpContext
-            isHttps = context.Request.IsHttps;
-            IPAddress fromIp = context.Request.HttpContext.Request.HttpContext.Connection.RemoteIpAddress;
-            string path = context.Request.Path;
-#elif NETCOREAPP3_0
+#elif (NETCOREAPP2_1 || NETCOREAPP3_0)
             //Use as Microsoft.AspNetCore.Http.HttpContext
             isHttps = context.Request.IsHttps;
             IPAddress fromIp = context.Request.HttpContext.Request.HttpContext.Connection.RemoteIpAddress;
@@ -157,12 +150,7 @@ namespace SqlSyringe {
             string formConnectionString = form["connectionstring"];
             string sqlCommand = form["sqlcommand"];
             bool isQuery = form["querytype"].Equals("isquery");
-#elif NETCOREAPP2_1
-            IFormCollection form = context.Request.ReadFormAsync().Result;
-            string formConnectionString = form["connectionstring"];
-            string sqlCommand = form["sqlcommand"];
-            bool isQuery = form["querytype"].ToString().Equals("isquery");
-#elif NETCOREAPP3_0
+#elif (NETCOREAPP2_1 || NETCOREAPP3_0)
             IFormCollection form = context.Request.ReadFormAsync().Result;
             string formConnectionString = form["connectionstring"];
             string sqlCommand = form["sqlcommand"];

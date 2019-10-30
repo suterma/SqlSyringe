@@ -6,14 +6,14 @@
 
 #endregion
 
-#if NETCOREAPP3_0
+#if (NETCOREAPP2_1 || NETCOREAPP3_0)
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
 namespace SqlSyringe
 {
     /// <summary>The Syringe middleware</summary>
-    /// <devdoc>This part implements the variant for .NET Core 2.1</devdoc>
+    /// <devdoc>This part implements the variant for .NET Core 2.1 and .NET Core 3.0</devdoc>
     public partial class Syringe {
 
         /// <summary>

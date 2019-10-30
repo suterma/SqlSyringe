@@ -4,7 +4,7 @@
 
 **USE WITH CAUTION**
 
-SqlSyringe is a SQL database injection tool, for testing and administration purposes. It allows specific users to directly execute SQL commands to a database.
+SqlSyringe is a SQL database exploration tool, for testing and administration purposes. It allows specific users to directly execute SQL commands to a database.
 
 Implemented as a middleware component for the ASP.NET request pipeline, it serves specific HTML pages and code that executes SQL commands directly to a database.
 

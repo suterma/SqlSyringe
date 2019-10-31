@@ -3,21 +3,21 @@
   <PropertyGroup>  
     <TargetFrameworks>netcoreapp3.0;netcoreapp2.1;net45</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Authors>Marcel Suter</Authors>
-    <Description>SqlSyringe is a SQL database injection tool, for testing and administration purposes. It allows specific users to directly execute SQL commands to a database.
+    <Description>SqlSyringe is a SQL database exploration tool, for testing and administration purposes. It allows specific users to directly execute SQL commands to a database.
 Implemented as a middleware component for the ASP.NET request pipeline, it serves specific HTML pages and code that executes SQL commands directly to a database.</Description>
     <Copyright>2019 by Marcel Suter</Copyright>
     <PackageLicenseUrl></PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/suterma/SqlSyringe</PackageProjectUrl>
     <RepositoryUrl>https://github.com/suterma/SqlSyringe</RepositoryUrl>
     <RepositoryType>GitHub</RepositoryType>
-    <PackageTags>SQL Injection Database Seed Test Data Maintenance</PackageTags>
+    <PackageTags>SQL exploration Injection Database Seed Test Data Maintenance</PackageTags>
     <PackageIconUrl>https://github.com/suterma/SqlSyringe/blob/master/SqlSyringe/icon.svg</PackageIconUrl>
-    <Version>1.0.2-alpha</Version>
-    <AssemblyVersion>1.0.2.0</AssemblyVersion>
-    <FileVersion>1.0.2.0</FileVersion>
-    <PackageReleaseNotes>This is a pre-release/alpha version.</PackageReleaseNotes>
+    <Version>1.0.3</Version>
+    <AssemblyVersion>1.0.3.0</AssemblyVersion>
+    <FileVersion>1.0.3.0</FileVersion>
+    <PackageReleaseNotes>This the first release</PackageReleaseNotes>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <ApplicationIcon>icon.ico</ApplicationIcon>
   </PropertyGroup>

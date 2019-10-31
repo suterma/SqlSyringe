@@ -7,41 +7,63 @@
         <member name="T:SqlSyringe.InjectionOptions">
             <summary>Options for injecting SQL commands</summary>
         </member>
+        <member name="P:SqlSyringe.InjectionOptions.ConnectionString">
+            <summary>
+                Gets or sets connection string to access the target database.
+            </summary>
+            <remarks>
+                If not provided here, the user must provide it in the injection request.
+            </remarks>
+            <value>The database connection string.</value>
+        </member>
         <member name="P:SqlSyringe.InjectionOptions.FromIp">
             <summary>
                 Gets or sets the required origin IP for the access check.
             </summary>
             <value>From ip.</value>
         </member>
-        <member name="P:SqlSyringe.InjectionOptions.UrlSlug">
-            <summary>
-            Gets or sets the URL slug, which triggers SQL Syringe.
-            </summary>
-            <remarks>Default is "/sql-syringe"</remarks>
-            <value>
-            The URL slug.
-            </value>
-        </member>
-        <member name="P:SqlSyringe.InjectionOptions.ConnectionString">
-            <summary>
-            Gets or sets connection string to access the target database.
-            </summary>
-            <remarks>If not provided here, the user must provide it in the injection request.</remarks>
-            <value>
-            The database connection string.
-            </value>
-        </member>
         <member name="P:SqlSyringe.InjectionOptions.HasConnectionString">
             <summary>
-            Determines whether the connection string is provided.
+                Determines whether the connection string is provided.
             </summary>
-            <remarks>If not provided here, the user must provide it in the injection request.</remarks>
-            <value>
-            Whether the connection string is provided here.
-            </value>
+            <remarks>
+                If not provided here, the user must provide it in the injection request.
+            </remarks>
+            <value>Whether the connection string is provided here.</value>
+        </member>
+        <member name="P:SqlSyringe.InjectionOptions.UrlSlug">
+            <summary>
+                Gets or sets the URL slug, which triggers SQL Syringe.
+            </summary>
+            <remarks>Default is "/sql-syringe"</remarks>
+            <value>The URL slug.</value>
         </member>
         <member name="T:SqlSyringe.InjectionRequest">
             <summary>Data about the injection request.</summary>
+        </member>
+        <member name="P:SqlSyringe.InjectionRequest.ConnectionString">
+            <summary>
+            Gets or sets the connection string.
+            </summary>
+            <value>
+            The connection string.
+            </value>
+        </member>
+        <member name="P:SqlSyringe.InjectionRequest.IsQuery">
+            <summary>
+            Gets or sets a value indicating whether this instance is a query for data.
+            </summary>
+            <value>
+              <c>true</c> if this instance is a query for data; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:SqlSyringe.InjectionRequest.SqlCommand">
+            <summary>
+            Gets or sets the SQL command.
+            </summary>
+            <value>
+            The SQL command.
+            </value>
         </member>
         <member name="T:SqlSyringe.Needle">
             <summary>The injection needle, to apply SQL commands.</summary>
@@ -100,7 +122,9 @@
             </summary>
             <devdoc>Common methods.</devdoc>
             <summary>The Syringe middleware</summary>
-            <devdoc>This part implements the variant for .NET Core 2.1</devdoc>
+            <devdoc>
+                This part implements the variant for .NET Core 2.1 and .NET Core 3.0
+            </devdoc>
         </member>
         <member name="M:SqlSyringe.Syringe.IsApplicableTo(Microsoft.AspNetCore.Http.HttpContext)">
             <summary>
@@ -121,14 +145,10 @@
             </exception>
         </member>
         <member name="F:SqlSyringe.Syringe._next">
-            <summary>
-                The next delegate/middleware
-            </summary>
+            <summary>The next delegate/middleware</summary>
         </member>
         <member name="F:SqlSyringe.Syringe._options">
-            <summary>
-                The options
-            </summary>
+            <summary>The options</summary>
         </member>
         <member name="M:SqlSyringe.Syringe.#ctor(Microsoft.AspNetCore.Http.RequestDelegate,SqlSyringe.InjectionOptions)">
             <summary>
@@ -138,31 +158,23 @@
             <param name="options">The options.</param>
         </member>
         <member name="M:SqlSyringe.Syringe.InvokeAsync(Microsoft.AspNetCore.Http.HttpContext)">
-            <summary>
-                Invokes the creation asynchronously.
-            </summary>
+            <summary>Invokes the creation asynchronously.</summary>
             <param name="context">The context.</param>
         </member>
-        <member name="M:SqlSyringe.Syringe.ResponseWrite(Microsoft.AspNetCore.Http.HttpContext,System.String)">
-            <summary>
-            Writes a content to the context's response.
-            </summary>
-            <param name="context"></param>
-            <param name="responseContent"></param>
-        </member>
         <member name="M:SqlSyringe.Syringe.IsGetRequest(Microsoft.AspNetCore.Http.HttpContext)">
-            <summary>
-            Determines, whether this is a GET request.
-            </summary>
+            <summary>Determines, whether this is a GET request.</summary>
             <param name="context"></param>
             <returns></returns>
         </member>
         <member name="M:SqlSyringe.Syringe.IsPostRequest(Microsoft.AspNetCore.Http.HttpContext)">
-            <summary>
-            Determines, whether this is a POST request.
-            </summary>
+            <summary>Determines, whether this is a POST request.</summary>
             <param name="context"></param>
             <returns></returns>
+        </member>
+        <member name="M:SqlSyringe.Syringe.ResponseWrite(Microsoft.AspNetCore.Http.HttpContext,System.String)">
+            <summary>Writes a content to the context's response.</summary>
+            <param name="context"></param>
+            <param name="responseContent"></param>
         </member>
     </members>
 </doc>

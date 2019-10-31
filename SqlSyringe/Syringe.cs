@@ -6,18 +6,19 @@
 
 #endregion
 
-using System;
-using System.Collections.Specialized;
-using System.Data;
-using System.Diagnostics;
-using System.Net;
-using System.Threading;
 #if NET45
 using System.Web;
-
+using System.Collections.Specialized;
 #elif (NETCOREAPP2_1 || NETCOREAPP3_0)
 using Microsoft.AspNetCore.Http;
 #endif
+
+
+using System;
+using System.Diagnostics;
+using System.Net;
+using System.Data;
+using System.Threading;
 
 namespace SqlSyringe {
     /// <summary>
@@ -44,6 +45,7 @@ namespace SqlSyringe {
             IPAddress fromIp = IPAddress.Parse(context.Request.UserHostAddress);
             string path = context.Request.Path;
 #elif (NETCOREAPP2_1 || NETCOREAPP3_0)
+
             //Use as Microsoft.AspNetCore.Http.HttpContext
             isHttps = context.Request.IsHttps;
             IPAddress fromIp = context.Request.HttpContext.Request.HttpContext.Connection.RemoteIpAddress;
@@ -79,55 +81,6 @@ namespace SqlSyringe {
             return isApplicable;
         }
 
-
-        private void ApplyTo(HttpContext context)
-        {
-            if (IsGetRequest(context))
-            {
-                //serve the empty form
-                string responseContent = Rendering.GetResourceText("SqlSyringe.SyringeIndex.html");
-                responseContent = responseContent.Replace("{{CONNECTIONSTRING-INPUT-DISPLAY}}", _options.HasConnectionString ? "none" : "block");
-                ResponseWrite(context, responseContent);
-            }
-            else if (IsPostRequest(context))
-            {
-                try
-                {
-                    Trace.WriteLine("Processing the SQL Syringe query request");
-                    if (string.IsNullOrEmpty(context.Request.ContentType)) throw new ArgumentException("HTTP request form has no content type.");
-
-                    InjectionRequest injection = GetInjectionRequest(context, _options);
-                    Needle needle = new Needle(injection.ConnectionString);
-
-                    //Apply the input
-                    if (injection.IsQuery)
-                    {
-                        //Read and serve data
-                        DataTable data = needle.Retrieve(injection.SqlCommand);
-                        string htmlData = Rendering.GetHtmlTableFrom(data);
-                        ResponseWrite(context, Rendering.GetContentWith(htmlData));
-                    }
-                    else
-                    {
-                        //Execute and serve row count
-                        int affectedRowCount = needle.Inject(injection.SqlCommand);
-                        ResponseWrite(context, Rendering.GetContentWith(Rendering.GetContentWith($"Number of Rows affected: {affectedRowCount}")));
-
-                    }
-                }
-                catch (ThreadAbortException) { 
-                    //do swallow these because the exception flow should end here, after one of the ResponseWrite has ended the response.
-                }
-                catch (Exception ex)
-                {
-                    //serve the output with the Exception message
-                    string responseContent = Rendering.GetResourceText("SqlSyringe.SyringeResult.html");
-                    responseContent = responseContent.Replace("{{OUTPUT}}", ex.Message);
-                    ResponseWrite(context, responseContent);
-                }
-            }
-        }
-
         /// <summary>
         ///     Accepts the options or throws and Exception if not valid.
         /// </summary>
@@ -141,6 +94,44 @@ namespace SqlSyringe {
 
             if (options.FromIp == null) {
                 throw new ArgumentNullException(nameof(options), "The Syringe FromIp option is mandatory.");
+            }
+        }
+
+        private void ApplyTo(HttpContext context) {
+            if (IsGetRequest(context)) {
+                //serve the empty form
+                string responseContent = Rendering.GetResourceText("SqlSyringe.SyringeIndex.html");
+                responseContent = responseContent.Replace("{{CONNECTIONSTRING-INPUT-DISPLAY}}", _options.HasConnectionString ? "none" : "block");
+                ResponseWrite(context, responseContent);
+            } else if (IsPostRequest(context)) {
+                try {
+                    Trace.WriteLine("Processing the SQL Syringe query request");
+                    if (string.IsNullOrEmpty(context.Request.ContentType)) {
+                        throw new ArgumentException("HTTP request form has no content type.");
+                    }
+
+                    InjectionRequest injection = GetInjectionRequest(context, _options);
+                    Needle needle = new Needle(injection.ConnectionString);
+
+                    //Apply the input
+                    if (injection.IsQuery) {
+                        //Read and serve data
+                        DataTable data = needle.Retrieve(injection.SqlCommand);
+                        string htmlData = Rendering.GetHtmlTableFrom(data);
+                        ResponseWrite(context, Rendering.GetContentWith(htmlData));
+                    } else {
+                        //Execute and serve row count
+                        int affectedRowCount = needle.Inject(injection.SqlCommand);
+                        ResponseWrite(context, Rendering.GetContentWith(Rendering.GetContentWith($"Number of Rows affected: {affectedRowCount}")));
+                    }
+                } catch (ThreadAbortException) {
+                    //do swallow these because the exception flow should end here, after one of the ResponseWrite has ended the response.
+                } catch (Exception ex) {
+                    //serve the output with the Exception message
+                    string responseContent = Rendering.GetResourceText("SqlSyringe.SyringeResult.html");
+                    responseContent = responseContent.Replace("{{OUTPUT}}", ex.Message);
+                    ResponseWrite(context, responseContent);
+                }
             }
         }
 

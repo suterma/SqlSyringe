@@ -11,43 +11,43 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body class="bg-warning">
-<div class="container body-content">
-    <h1>SqlSyringe (alpha/pre-release status)</h1>
-    <span class="badge badge-danger">USE WITH CAUTION</span>
-    <p><a href="https://github.com/suterma/SqlSyringe">SqlSyringe</a> is a SQL database injection tool, for testing and administration purposes. It allows specific users to directly execute SQL commands to a database.</p>
+    <div class="container body-content">
+        <h1>SqlSyringe (alpha/pre-release status)</h1>
+        <span class="badge badge-danger">USE WITH CAUTION</span>
+        <p><a href="https://github.com/suterma/SqlSyringe">SqlSyringe</a> is a SQL database injection tool, for testing and administration purposes. It allows specific users to directly execute SQL commands to a database.</p>
 
-    <hr/>
+        <hr />
 
-    <form method="post">
-        <div class="form-group" style="display: {{CONNECTIONSTRING-INPUT-DISPLAY}}">
-            <label for="connectionstring">Connection String</label>
-            <input type="text" class="form-control" id="connectionstring" name="connectionstring" aria-describedby="connectionstringHelp" placeholder="Enter connection string"/>
-            <small id="connectionstringHelp" class="form-text text-muted">This connection string is used to connect to the database. It's only used once and not stored.</small>
-        </div>
-        <div class="form-group">
-            <label for="sqlcommand">SQL Command</label>
-            <textarea rows="12" class="form-control" id="sqlcommand" name="sqlcommand" aria-describedby="sqlcommandHelp" placeholder="Enter SQL command"></textarea>
-            <small id="sqlcommandHelp" class="form-text text-muted">The command to execute.</small>
-        </div>
-        <div class="form-group">
-            <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="isquery" value="isquery" name="querytype" class="custom-control-input" checked>
-                <label class="custom-control-label" for="isquery">Query (shows data)</label>
+        <form method="post">
+            <div class="form-group" style="display: {{CONNECTIONSTRING-INPUT-DISPLAY}}">
+                <label for="connectionstring">Connection String</label>
+                <input type="text" class="form-control" id="connectionstring" name="connectionstring" aria-describedby="connectionstringHelp" placeholder="Enter connection string" />
+                <small id="connectionstringHelp" class="form-text text-muted">This connection string is used to connect to the database. It's only used once and not stored.</small>
             </div>
-            <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="isnonquery" value="isnonquery" name="querytype" class="custom-control-input">
-                <label class="custom-control-label" for="isnonquery">Non-Query (shows rows affected)</label>
+            <div class="form-group">
+                <label for="sqlcommand">SQL Command</label>
+                <textarea rows="12" class="form-control" id="sqlcommand" name="sqlcommand" aria-describedby="sqlcommandHelp" placeholder="Enter SQL command"></textarea>
+                <small id="sqlcommandHelp" class="form-text text-muted">The command to execute.</small>
             </div>
-        </div>
+            <div class="form-group">
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="isquery" value="isquery" name="querytype" class="custom-control-input" checked>
+                    <label class="custom-control-label" for="isquery">Query (shows data)</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="isnonquery" value="isnonquery" name="querytype" class="custom-control-input">
+                    <label class="custom-control-label" for="isnonquery">Non-Query (shows rows affected)</label>
+                </div>
+            </div>
 
-        <button type="submit" class="btn btn-danger">Submit to database!</button>
-    </form>
+            <button type="submit" class="btn btn-danger">Submit to database!</button>
+        </form>
 
-    <hr/>
+        <hr />
 
-    <footer>
-        <p>&copy; 2019 - <a href="https://github.com/suterma/SqlSyringe">SqlSyringe</a> by <a href="https://marcelsuter.ch">Marcel Suter</a>. MIT-Licensed.</p>
-    </footer>
-</div>
+        <footer>
+            <p>&copy; 2019 - <a href="https://github.com/suterma/SqlSyringe">SqlSyringe</a> by <a href="https://marcelsuter.ch">Marcel Suter</a>. MIT-Licensed.</p>
+        </footer>
+    </div>
 </body>
 </html>

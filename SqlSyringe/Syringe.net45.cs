@@ -6,10 +6,9 @@
 
 #endregion
 
-using System.Data;
-using System.Diagnostics;
 #if NET45
 using System;
+using System.Diagnostics;
 using System.Web;
 
 namespace SqlSyringe {
@@ -45,17 +44,6 @@ namespace SqlSyringe {
             }
         }
 
-
-        /// <summary>
-        /// Determines, whether this is a POST request.
-        /// </summary>
-        /// <param name="context"></param>
-        /// <returns></returns>
-        private bool IsPostRequest(HttpContext context)
-        {
-            return context.Request.RequestType == "POST";
-        }
-
         private void Application_BeginRequest(object source, EventArgs e) {
             HttpContext context = ((HttpApplication) source).Context;
 
@@ -63,9 +51,21 @@ namespace SqlSyringe {
             Treat(context);
         }
 
-        /// <summary>
-        /// Writes a content to the context's response.
-        /// </summary>
+        /// <summary>Determines, whether this is a GET request.</summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        private bool IsGetRequest(HttpContext context) {
+            return context.Request.RequestType == "GET";
+        }
+
+        /// <summary>Determines, whether this is a POST request.</summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        private bool IsPostRequest(HttpContext context) {
+            return context.Request.RequestType == "POST";
+        }
+
+        /// <summary>Writes a content to the context's response.</summary>
         /// <param name="context"></param>
         /// <param name="responseContent"></param>
         private void ResponseWrite(HttpContext context, string responseContent) {
@@ -73,15 +73,6 @@ namespace SqlSyringe {
             context.Response.Write(responseContent);
             context.Response.Flush();
             context.Response.End();
-        }
-        /// <summary>
-        /// Determines, whether this is a GET request.
-        /// </summary>
-        /// <param name="context"></param>
-        /// <returns></returns>
-        private bool IsGetRequest(HttpContext context)
-        {
-            return context.Request.RequestType == "GET";
         }
     }
 }

@@ -21,10 +21,12 @@ I built this as an example project for learning ASP.NET core.
 In the target project, configure SqlSyringe in Startup.cs as a middleware:
 
 ```csharp
-            //Enable SylSyringe from a specific source IP only (will pass over request otherwise)
-            app.UseMiddleware<Syringe>(new InjectionOptions()
-            {
-                FromIp = IPAddress.Parse("::1") //Use your IP, e.g. ::1 is IPv6 localhost
+            //Use and configure SqlSyringe.
+            app.UseMiddleware<Syringe>(new InjectionOptions() {
+                //Enable SqlSyringe from a specific source IP only (will pass over request otherwise). Example: "::1" is IPv6 localhost
+                FromIp = IPAddress.Parse("::1"), 
+                //The connection string to use for queries. If omitted here, the user must provide it with each request.
+                ConnectionString = "..."
             });
 ```
 This registers the middleware in the ASP.NET Core request pipeline, waiting to handle appropriate requests.
@@ -38,6 +40,10 @@ In the HttpApplication, create and register the SqlSyringe Module in the Global.
         /// </summary>
         /// <devdoc>Provide the options from a config file as necessary.</devdoc>
         private static readonly IHttpModule SqlSyringeModule = new Syringe(new InjectionOptions {
+            //Enable SqlSyringe from a specific source IP only (will pass over request otherwise). Example: "::1" is IPv6 localhost
+            FromIp = IPAddress.Parse("::1"), 
+            //The connection string to use for queries. If omitted here, the user must provide it with each request.
+            ConnectionString = "..."
             FromIp = IPAddress.Parse("::1")
         });
         

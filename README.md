@@ -12,7 +12,7 @@ It uses some minimal security measures:
 
   * A specific single source IP address must be configured and any request is checked against it.
   * Only requests via HTTPS are accepted
-  * The connection string must be provided by the user and is never stored
+  * The connection string is either configured or must be provided by the user and is never stored
 
 I built this as an example project for learning ASP.NET core.
 

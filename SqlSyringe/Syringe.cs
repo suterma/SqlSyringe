@@ -45,7 +45,6 @@ namespace SqlSyringe {
             IPAddress fromIp = IPAddress.Parse(context.Request.UserHostAddress);
             string path = context.Request.Path;
 #elif (NETCOREAPP2_1 || NETCOREAPP3_0)
-
             //Use as Microsoft.AspNetCore.Http.HttpContext
             isHttps = context.Request.IsHttps;
             IPAddress fromIp = context.Request.HttpContext.Request.HttpContext.Connection.RemoteIpAddress;
@@ -148,8 +147,8 @@ namespace SqlSyringe {
             bool isQuery = form["querytype"].ToString().Equals("isquery");
 #endif
 
-            //Choose the connection string source (form overrides, if available)
-            string connectionString = string.IsNullOrEmpty(formConnectionString) ? options.ConnectionString : formConnectionString;
+            //Choose the connection string source (options overrides form, if available)
+            string connectionString = string.IsNullOrEmpty(options.ConnectionString) ? formConnectionString : options.ConnectionString;
 
             //Create the injection
             InjectionRequest injection = new InjectionRequest {

@@ -44,7 +44,6 @@ private static readonly IHttpModule SqlSyringeModule = new Syringe(new Injection
     FromIp = IPAddress.Parse("::1"), 
     //The connection string to use for queries. If omitted here, the user must provide it with each request.
     ConnectionString = "..."
-    FromIp = IPAddress.Parse("::1")
 });
         
 //...

@@ -176,5 +176,18 @@
             <param name="context"></param>
             <param name="responseContent"></param>
         </member>
+        <member name="T:SqlSyringe.SyringeExtensions">
+            <summary>
+            Static extenstion methods for SqlSyringe
+            </summary>
+        </member>
+        <member name="M:SqlSyringe.SyringeExtensions.UseSqlSyringe(Microsoft.AspNetCore.Builder.IApplicationBuilder,SqlSyringe.InjectionOptions)">
+            <summary>
+            Uses the SqlSyringe Middleware with the given options.
+            </summary>
+            <param name="app">The app to use SqlSyringe on.</param>
+            <param name="options">The options to use.</param>
+            <returns>The app with SqlSyringe applied.</returns>
+        </member>
     </members>
 </doc>

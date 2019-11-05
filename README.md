@@ -43,7 +43,7 @@ private static readonly IHttpModule SqlSyringeModule = new Syringe(new Injection
     //Enable SqlSyringe from a specific source IP only (will pass over request otherwise). Example: "::1" is IPv6 localhost
     FromIp = IPAddress.Parse("::1"), 
     //The connection string to use for queries. If omitted here, the user must provide it with each request.
-    ConnectionString = "..."
+    ConnectionString = ConfigurationManager.ConnectionStrings["DbConnectionString"].ConnectionString
 });
         
 //...

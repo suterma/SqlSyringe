@@ -33,7 +33,7 @@ namespace SqlSyringe {
         /// <returns>
         ///     <c>true</c> if [is applicable to] [the specified context]; otherwise, <c>false</c>.
         /// </returns>
-        public bool IsApplicableTo(HttpContext context) {
+        internal bool IsApplicableTo(HttpContext context) {
             Debug.Write($"Determining whether SqlSyringe is applicable to the context: ");
             bool isHttps;
             bool isFromIpMatch;

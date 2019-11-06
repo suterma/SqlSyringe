@@ -9,6 +9,7 @@
 #if NET45
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Web;
 
 namespace SqlSyringe {
@@ -31,43 +32,47 @@ namespace SqlSyringe {
         public void Init(HttpApplication application) {
             Trace.WriteLine("Initializing the SQL Syringe .NET 4.5 module...");
 
-            if (_options.IsUserAuthenticationRequired)
-            {
-                //SqlSyringe must be authorized according to the user authentication
-                application.PostAuthenticateRequest += Application_PostAuthenticateRequest;
-            }
-            else
-            {
-                //When no user authentication is required, directly serve at the beginning
-                //TODO is this required like this?
-                application.BeginRequest += Application_BeginRequest;
-            }
+            //SqlSyringe treats the request only ever after a possibly required authentication was handeled
+            application.PostAuthenticateRequest += Application_PostAuthenticateRequest;
+
             Trace.WriteLine("SQL Syringe .NET 4.5 module initialization done.");
         }
 
-        private void Application_PostAuthenticateRequest(object sender, EventArgs e)
+        private void Application_PostAuthenticateRequest(object source, EventArgs e)
         {
-            //TODO called when no authentication required??
-            //TODO continue
             HttpContext context = ((HttpApplication)source).Context;
-
+            //Treat the request, with the possibly applied authentication on the context 
+            Treat(context);
+        }
+        /// <summary>
+        /// Determines whether the request complies with the possibly required user-based authorization.
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns><c>true</c> when the request complies with the requirements; <c>false</c> otherwise.</returns>
+        private bool IsUserAuthorized(HttpContext context)
+        {
+            //Authentication required by SqlSyringe options?
             if (_options.IsUserAuthenticationRequired)
             {
                 if (context.Request.IsAuthenticated)
                 {
-                    if (op)
-                    if (context.User.IsInRole("admin"))
+                    //Authorize the user as configured
+                    if (
+                        (string.IsNullOrEmpty(_options.Role) || context.User.IsInRole(_options.Role)) &&
+                        (string.IsNullOrEmpty(_options.UserName) || _options.UserNames.Contains(context.User.Identity.Name))
+                            )
                     {
-                        if (context.User.Identity.Name == "marcel.suter")
-                        {
-                            var test = "then do serve this";
-                        }
+                        return true;
                     }
                 }
-
             }
-
-
+            else
+            {
+                //When no user-based authorization is required, treat the request anyway
+                return true;
+            }
+            //In any other cases, leave the request alone.
+            return false;
         }
 
         /// <summary>
@@ -75,17 +80,12 @@ namespace SqlSyringe {
         /// </summary>
         /// <param name="context">The context.</param>
         public void Treat(HttpContext context) {
-            if (IsApplicableTo(context)) {
+            if (IsUserAuthorized(context) && IsApplicableTo(context)) {
                 ApplyTo(context);
             }
         }
 
-        private void Application_BeginRequest(object source, EventArgs e) {
-            HttpContext context = ((HttpApplication) source).Context;
 
-            //Handle the context, if applicable
-            Treat(context);
-        }
 
         /// <summary>Determines, whether this is a GET request.</summary>
         /// <param name="context"></param>

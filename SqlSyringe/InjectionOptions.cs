@@ -41,9 +41,9 @@ namespace SqlSyringe {
         /// <summary>
         ///     Gets or sets the URL slug, which triggers SQL Syringe.
         /// </summary>
-        /// <remarks>Default is "./sql-syringe"</remarks>
+        /// <remarks>Default is "/sql-syringe"</remarks>
         /// <value>The URL slug.</value>
-        public string UrlSlug { get; set; } = "./sql-syringe";
+        public string UrlSlug { get; set; } = "/sql-syringe";
 
 #if NET45
         /// <summary>
@@ -60,7 +60,7 @@ namespace SqlSyringe {
         /// Gets the name of the user(s), parsed from UserName.
         /// </summary>
         /// <devdoc>Only provided for .NET 4.5, because with .NET Core, user-defined access checks are possible.</devdoc>
-        public string[] UserNames => UserName.Split(new Char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+        public string[] UserNames => UserName == null ? new string[0] :  UserName.Split(new Char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
         /// <summary>
         /// Gets or sets the role. If set, authorization requires an authenticated user with this role.
@@ -72,7 +72,7 @@ namespace SqlSyringe {
         public string Role { get; set; }
 
         /// <summary>
-        ///     Determines whether the options require user authetication.
+        ///     Determines whether the options require user authentication.
         /// </summary>
         /// <devdoc>Only provided for .NET 4.5, because with .NET Core, user-defined access checks are possible.</devdoc>
         public bool IsUserAuthenticationRequired => UserNames.Any() || !string.IsNullOrEmpty(Role);

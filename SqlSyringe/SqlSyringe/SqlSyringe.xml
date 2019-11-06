@@ -20,6 +20,7 @@
             <summary>
                 Gets or sets the required origin IP for the access check.
             </summary>
+            <remarks>Default ist IPv6 localhost (::1)</remarks>
             <value>From ip.</value>
         </member>
         <member name="P:SqlSyringe.InjectionOptions.HasConnectionString">

@@ -6,6 +6,8 @@
 
 #endregion
 
+using System;
+using System.Linq;
 using System.Net;
 
 namespace SqlSyringe {
@@ -23,8 +25,9 @@ namespace SqlSyringe {
         /// <summary>
         ///     Gets or sets the required origin IP for the access check.
         /// </summary>
+        /// <remarks>Default ist IPv6 localhost (::1)</remarks>
         /// <value>From ip.</value>
-        public IPAddress FromIp { get; set; }
+        public IPAddress FromIp { get; set; } = IPAddress.Parse("::1");
 
         /// <summary>
         ///     Determines whether the connection string is provided.
@@ -38,8 +41,42 @@ namespace SqlSyringe {
         /// <summary>
         ///     Gets or sets the URL slug, which triggers SQL Syringe.
         /// </summary>
-        /// <remarks>Default is "/sql-syringe"</remarks>
+        /// <remarks>Default is "./sql-syringe"</remarks>
         /// <value>The URL slug.</value>
-        public string UrlSlug { get; set; } = "/sql-syringe";
+        public string UrlSlug { get; set; } = "./sql-syringe";
+
+#if NET45
+        /// <summary>
+        /// Gets or sets the name of the user(s). If set, authorization requires an authenticated user with any of the given name(s).
+        /// </summary>
+        /// <remarks>Multiple user names can be separated by comma.</remarks>
+        /// <value>
+        /// The name of the user(s).
+        /// </value>
+        /// <devdoc>Only provided for .NET 4.5, because with .NET Core, user-defined access checks are possible.</devdoc>
+        public string UserName { get; set; }
+
+        /// <summary>
+        /// Gets the name of the user(s), parsed from UserName.
+        /// </summary>
+        /// <devdoc>Only provided for .NET 4.5, because with .NET Core, user-defined access checks are possible.</devdoc>
+        public string[] UserNames => UserName.Split(new Char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+        /// <summary>
+        /// Gets or sets the role. If set, authorization requires an authenticated user with this role.
+        /// </summary>
+        /// <value>
+        /// The role.
+        /// </value>
+        /// <devdoc>Only provided for .NET 4.5, because with .NET Core, user-defined access checks are possible.</devdoc>
+        public string Role { get; set; }
+
+        /// <summary>
+        ///     Determines whether the options require user authetication.
+        /// </summary>
+        /// <devdoc>Only provided for .NET 4.5, because with .NET Core, user-defined access checks are possible.</devdoc>
+        public bool IsUserAuthenticationRequired => UserNames.Any() || !string.IsNullOrEmpty(Role);
+
+#endif
     }
 }

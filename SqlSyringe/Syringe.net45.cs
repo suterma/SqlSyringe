@@ -30,8 +30,44 @@ namespace SqlSyringe {
 
         public void Init(HttpApplication application) {
             Trace.WriteLine("Initializing the SQL Syringe .NET 4.5 module...");
-            application.BeginRequest += Application_BeginRequest;
+
+            if (_options.IsUserAuthenticationRequired)
+            {
+                //SqlSyringe must be authorized according to the user authentication
+                application.PostAuthenticateRequest += Application_PostAuthenticateRequest;
+            }
+            else
+            {
+                //When no user authentication is required, directly serve at the beginning
+                //TODO is this required like this?
+                application.BeginRequest += Application_BeginRequest;
+            }
             Trace.WriteLine("SQL Syringe .NET 4.5 module initialization done.");
+        }
+
+        private void Application_PostAuthenticateRequest(object sender, EventArgs e)
+        {
+            //TODO called when no authentication required??
+            //TODO continue
+            HttpContext context = ((HttpApplication)source).Context;
+
+            if (_options.IsUserAuthenticationRequired)
+            {
+                if (context.Request.IsAuthenticated)
+                {
+                    if (op)
+                    if (context.User.IsInRole("admin"))
+                    {
+                        if (context.User.Identity.Name == "marcel.suter")
+                        {
+                            var test = "then do serve this";
+                        }
+                    }
+                }
+
+            }
+
+
         }
 
         /// <summary>

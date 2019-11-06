@@ -10,23 +10,26 @@ Implemented as a middleware component for the ASP.NET request pipeline, it serve
 
 It uses some minimal security measures:
 
-  * A specific single source IP address must be configured and any request is checked against it.
+  * A specific single source IP address must be configured and any request is checked against it.  
   * Only requests via HTTPS are accepted
-  * The connection string is either configured or must be provided by the user and is never stored
+  * The connection string is either configured or must be provided by the user
+  * !PENDING! With .NET Core, conditional mapping allows customized access control
+  * With .NET 4.5, the ASP.NET authentication is supported
 
-I built this as an example project for learning ASP.NET core.
+I built this as an example project for learning ASP.NET Core and multi-targeting NuGet packages.
 
 ## Application
+These examples use a minimal contfiguration
 ### .NET Core
 In the target project, configure SqlSyringe in Startup.cs as a middleware:
 
 ```csharp
 //Use and configure SqlSyringe.
 app.UseMiddleware<Syringe>(new InjectionOptions() {
-    //Enable SqlSyringe from a specific source IP only (will pass over request otherwise). Example: "::1" is IPv6 localhost
-    FromIp = IPAddress.Parse("::1"), 
+    //Enable SqlSyringe from a specific source IP only. If not provided IPv6 localhost is used (::1)
+    FromIp = IPAddress.Parse("1.2.3.4"), 
     //The connection string to use for queries. If omitted here, the user must provide it with each request.
-    ConnectionString = "..."
+    ConnectionString = ConfigurationManager.ConnectionStrings["DbConnectionString"].ConnectionString
 });
 ```
 This registers the middleware in the ASP.NET Core request pipeline, waiting to handle appropriate requests.
@@ -40,8 +43,8 @@ In the target HttpApplication, create and register the SqlSyringe Module in the 
 /// </summary>
 /// <devdoc>Provide the options from a config file as necessary.</devdoc>
 private static readonly IHttpModule SqlSyringeModule = new Syringe(new InjectionOptions {
-    //Enable SqlSyringe from a specific source IP only (will pass over request otherwise). Example: "::1" is IPv6 localhost
-    FromIp = IPAddress.Parse("::1"), 
+    //Enable SqlSyringe from a specific source IP only. If not provided IPv6 localhost is used (::1)
+    FromIp = IPAddress.Parse("1.2.3.4"), 
     //The connection string to use for queries. If omitted here, the user must provide it with each request.
     ConnectionString = ConfigurationManager.ConnectionStrings["DbConnectionString"].ConnectionString
 });
@@ -81,7 +84,7 @@ SqlSyringe is a powerful tool and with power comes responsibility. Make sure, yo
 
 * IP-Address
   
-  Default is IPv6 localhost (`::1`). By restricting to serve responses only to a specific origin IP, you can make sure only a select organisation has access. However, IP addresses tend to change and in case you use e.g a firewall, load balancer, or reverse proxy, restricting the IP may not be helpful.
+  Default is IPv6 localhost (`::1`). By restricting to serve responses only to a specific origin IP, you can make sure only a select organisation has access. However, IP addresses tend to change and in case you use e.g a firewall, load balancer, or reverse proxy, restricting the IP alone may not be helpful.
 
 * Connection string
   
@@ -89,7 +92,7 @@ SqlSyringe is a powerful tool and with power comes responsibility. Make sure, yo
 
 * URL slug
   
-  While the default path to SqlSyringe is `./sql-syringe` you can provide a different slug, e.g. to make use of already exising path-based access-checks and/or to provide different instantiations of SqlSyringe with different configurations (e.g. for different databases)
+  While the default path to SqlSyringe is `/sql-syringe` you can provide a different slug, e.g. to make use of already exising path-based access-checks and/or to provide different instantiations of SqlSyringe with different configurations (e.g. for different databases)
 
 * Role & user name
 
@@ -104,8 +107,8 @@ SqlSyringe is a powerful tool and with power comes responsibility. Make sure, yo
 ### Advanced example with .NET 4.5
 ```csharp
 private static readonly IHttpModule SqlSyringeModule = new Syringe(new InjectionOptions {
-    //Access path (default is "./sql-syringe")
-    UrlSlug = "./admin/database/sql-syringe",
+    //Access path (default is "/sql-syringe")
+    UrlSlug = "/admin/database/sql-syringe",
     //Enable SqlSyringe from a specific source IP only (default is IPv6 localhost)
     FromIp = IPAddress.Parse("8.8.8.8"), 
     ConnectionString = ConfigurationManager.ConnectionStrings["DbConnectionString"].ConnectionString,

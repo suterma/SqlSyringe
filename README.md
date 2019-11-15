@@ -19,7 +19,7 @@ It uses some minimal security measures:
 I built this as an example project for learning ASP.NET Core and multi-targeting NuGet packages.
 
 ## Application
-These examples use a minimal contfiguration
+These examples use a minimal configuration
 ### .NET Core
 In the target project, configure SqlSyringe in Startup.cs as a middleware:
 

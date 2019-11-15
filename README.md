@@ -13,7 +13,7 @@ It uses some minimal security measures:
   * A specific single source IP address must be configured and any request is checked against it.  
   * Only requests via HTTPS are accepted
   * The connection string is either configured or must be provided by the user
-  * !PENDING! With .NET Core, conditional mapping allows customized access control
+  * With .NET Core, conditional mapping allows customized access control
   * With .NET 4.5, the ASP.NET authentication is supported
 
 I built this as an example project for learning ASP.NET Core and multi-targeting NuGet packages.

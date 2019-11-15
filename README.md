@@ -26,10 +26,10 @@ In the target project, configure SqlSyringe in Startup.cs as a middleware:
 ```csharp
 //Use and configure SqlSyringe.
 app.UseMiddleware<Syringe>(new InjectionOptions() {
-    //Enable SqlSyringe from a specific source IP only. If not provided IPv6 localhost is used (::1)
+    //Enable SqlSyringe from a specific source IP only. If not provided, IPv6 localhost is used (::1)
     FromIp = IPAddress.Parse("1.2.3.4"), 
     //The connection string to use for queries. If omitted here, the user must provide it with each request.
-    ConnectionString = ConfigurationManager.ConnectionStrings["DbConnectionString"].ConnectionString
+    ConnectionString = Configuration.GetConnectionString("DefaultConnection")
 });
 ```
 This registers the middleware in the ASP.NET Core request pipeline, waiting to handle appropriate requests.

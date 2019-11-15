@@ -91,18 +91,33 @@ SqlSyringe is a powerful tool and with power comes responsibility. Make sure, yo
 
 * URL slug
   
-  While the default path to SqlSyringe is `/sql-syringe` you can provide a different slug, e.g. to make use of already exising path-based access-checks and/or to provide different instantiations of SqlSyringe with different configurations (e.g. for different databases)
+  While the default path to SqlSyringe is `/sql-syringe`, you can provide a different slug, e.g. to make use of already exising path-based access-checks and/or to provide different instantiations of SqlSyringe with different configurations (e.g. for different databases)
 
 * Authentication & Authorization
   
-  //TODO
+  SqlSyringe allows you to implement arbitrary custom requirements via the conditional middleware branching in .NET Core. See the below example for additional role- and username-based authentication and authorization. You could also require e.g. client certificates, cookie values etc.
 
 ### Advanced example with .NET Core
-//TODO
 ```csharp
-...
-});
+// Conditionally handle requests (exclusively) with the SqlSyringe, based on additional request properties            
+app.MapWhen(context =>
+    context.Request.HttpContext.User.Identity.IsAuthenticated &&
+    context.Request.HttpContext.User.IsInRole("sqladmin") &&
+    context.Request.HttpContext.User.Identity.Name == "test@marcelsuter.ch",
+    appBuilder => {
+        //Use and configure SqlSyringe with it's own options.
+        appBuilder.UseMiddleware<Syringe>(new InjectionOptions() {
+            //Enable SqlSyringe from a specific source IP only. If not provided, IPv6 localhost is used (::1)
+            FromIp = IPAddress.Parse("::1"),
+            //Only handle a specific path ("sql-syringe" is used as default)
+            UrlSlug = "/sql-syringe-to-my-database",
+            //The connection string to use for queries. If omitted here, the user must provide it with each request.
+            ConnectionString = Configuration.GetConnectionString("MyCustomConnection")
+        });
+    }
+);
 ```
+Configure the SqlSyringe at the end of the pipeline to make sure it does not interfere with existing middlewares.
 
 ### Options with .NET 4.5
 

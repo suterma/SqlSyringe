@@ -79,8 +79,32 @@ On submit and after succesful injection, you get a result either with data or th
 
 SqlSyringe is a powerful tool and with power comes responsibility. Make sure, you configure it appropriate to your access requirements.
 
+### Options with .NET Core
+
+* IP-Address
+  
+  Default is IPv6 localhost (`::1`). By restricting to serve responses only to a specific origin IP, you can make sure only a select organisation has access. However, IP addresses tend to change and in case you use e.g a firewall, load balancer, or reverse proxy, restricting the IP alone may not be helpful.
+
+* Connection string
+  
+  Providing the connection string in the configuration saves the user from typing it in manually in each request, thus it is generally recommended. On the other hand, requiring the connection string from the user may serve as some kind of access control and/or allowing to deliberately use different connection variants on purpose.
+
+* URL slug
+  
+  While the default path to SqlSyringe is `/sql-syringe` you can provide a different slug, e.g. to make use of already exising path-based access-checks and/or to provide different instantiations of SqlSyringe with different configurations (e.g. for different databases)
+
+* Authentication & Authorization
+  
+  //TODO
+
+### Advanced example with .NET Core
+//TODO
+```csharp
+...
+});
+```
+
 ### Options with .NET 4.5
-!!!pending not implemented
 
 * IP-Address
   

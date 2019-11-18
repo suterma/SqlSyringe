@@ -25,9 +25,9 @@ In the target project, configure SqlSyringe in Startup.cs as a middleware:
 
 ```csharp
 //Use and configure SqlSyringe.
-app.UseMiddleware<Syringe>(new InjectionOptions() {
+app.UseSqlSyringe(new InjectionOptions() {
     //Enable SqlSyringe from a specific source IP only. If not provided, IPv6 localhost is used (::1)
-    FromIp = IPAddress.Parse("1.2.3.4"), 
+    //FromIp = IPAddress.Parse("8.8.8.8"), 
     //The connection string to use for queries. If omitted here, the user must provide it with each request.
     ConnectionString = Configuration.GetConnectionString("DefaultConnection")
 });
@@ -44,7 +44,7 @@ In the target HttpApplication, create and register the SqlSyringe Module in the 
 /// <devdoc>Provide the options from a config file as necessary.</devdoc>
 private static readonly IHttpModule SqlSyringeModule = new Syringe(new InjectionOptions {
     //Enable SqlSyringe from a specific source IP only. If not provided IPv6 localhost is used (::1)
-    FromIp = IPAddress.Parse("1.2.3.4"), 
+    //FromIp = IPAddress.Parse("8.8.8.8"), 
     //The connection string to use for queries. If omitted here, the user must provide it with each request.
     ConnectionString = ConfigurationManager.ConnectionStrings["DbConnectionString"].ConnectionString
 });
@@ -106,9 +106,9 @@ app.MapWhen(context =>
     context.Request.HttpContext.User.Identity.Name == "test@marcelsuter.ch",
     appBuilder => {
         //Use and configure SqlSyringe with it's own options.
-        appBuilder.UseMiddleware<Syringe>(new InjectionOptions() {
+        appBuilder.UseSqlSyringe(new InjectionOptions() {
             //Enable SqlSyringe from a specific source IP only. If not provided, IPv6 localhost is used (::1)
-            FromIp = IPAddress.Parse("::1"),
+            FromIp = IPAddress.Parse("8.8.8.8"), 
             //Only handle a specific path ("sql-syringe" is used as default)
             UrlSlug = "/sql-syringe-to-my-database",
             //The connection string to use for queries. If omitted here, the user must provide it with each request.

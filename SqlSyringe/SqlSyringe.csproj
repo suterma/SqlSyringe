@@ -6,6 +6,7 @@
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Authors>Marcel Suter</Authors>
     <Description>SqlSyringe is a SQL database exploration tool, for testing and administration purposes. It allows specific users to directly execute SQL commands to a database.
+
 Implemented as a middleware component for the ASP.NET request pipeline, it serves specific HTML pages and code that executes SQL commands directly to a database.</Description>
     <Copyright>2019 by Marcel Suter</Copyright>
     <PackageLicenseUrl></PackageLicenseUrl>
@@ -14,10 +15,10 @@ Implemented as a middleware component for the ASP.NET request pipeline, it serve
     <RepositoryType>GitHub</RepositoryType>
     <PackageTags>SQL exploration Injection Database Seed Test Data Maintenance</PackageTags>
     <PackageIconUrl>https://github.com/suterma/SqlSyringe/blob/master/SqlSyringe/icon.svg</PackageIconUrl>
-    <Version>1.0.3</Version>
-    <AssemblyVersion>1.0.3.0</AssemblyVersion>
-    <FileVersion>1.0.3.0</FileVersion>
-    <PackageReleaseNotes>This the first release</PackageReleaseNotes>
+    <Version>1.0.4</Version>
+    <AssemblyVersion>1.0.4.0</AssemblyVersion>
+    <FileVersion>1.0.4.0</FileVersion>
+    <PackageReleaseNotes>First release</PackageReleaseNotes>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <ApplicationIcon>icon.ico</ApplicationIcon>
   </PropertyGroup>

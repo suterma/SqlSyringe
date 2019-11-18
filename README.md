@@ -14,7 +14,7 @@ It uses some minimal security measures:
   * Only requests via HTTPS are accepted
   * The connection string is either configured or must be provided by the user
   * With .NET Core, conditional mapping allows customized access control
-  * With .NET 4.5, the ASP.NET authentication is supported
+  * With .NET Framework 4.5, the ASP.NET authentication is supported
 
 I built this as an example project for learning ASP.NET Core and multi-targeting NuGet packages.
 
@@ -34,7 +34,7 @@ app.UseMiddleware<Syringe>(new InjectionOptions() {
 ```
 This registers the middleware in the ASP.NET Core request pipeline, waiting to handle appropriate requests.
 
-### .NET 4.5
+### .NET Framework 4.5
 
 In the target HttpApplication, create and register the SqlSyringe Module in the Global.asax.cs file:
 ```csharp
@@ -119,7 +119,7 @@ app.MapWhen(context =>
 ```
 Configure the SqlSyringe at the end of the pipeline to make sure it does not interfere with existing middlewares.
 
-### Options with .NET 4.5
+### Options with .NET Framework 4.5
 
 * IP-Address
   
@@ -143,7 +143,7 @@ Configure the SqlSyringe at the end of the pipeline to make sure it does not int
   
   SqlSyringe does not use the built-in authorizaton: If either a specific role and/or username(s) one is provided in the options, SylSyringe checks whether the request has `Identity.IsAuthenticated` on true and then authorizes access based on the provided role and username information.
 
-### Advanced example with .NET 4.5
+### Advanced example with .NET Framework 4.5
 ```csharp
 private static readonly IHttpModule SqlSyringeModule = new Syringe(new InjectionOptions {
     //Access path (default is "/sql-syringe")

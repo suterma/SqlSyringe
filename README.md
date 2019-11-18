@@ -1,4 +1,4 @@
-# SqlSyringe (alpha/pre-release status)
+# SqlSyringe
 
 <img src="https://raw.githubusercontent.com/suterma/SqlSyringe/master/doc/icon.gif" alt="icon" width="100" align="right">
 

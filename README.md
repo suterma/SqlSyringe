@@ -8,7 +8,7 @@ SqlSyringe is a SQL database exploration tool, for testing and administration pu
 
 Implemented as a middleware component for the ASP.NET request pipeline, it serves specific HTML pages and code that executes SQL commands directly to a database.
 
-It uses some minimal security measures:
+It offers any combination of the following security measures:
 
   * A specific single source IP address must be configured and any request is checked against it.  
   * Only requests via HTTPS are accepted

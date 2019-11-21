@@ -137,7 +137,7 @@ Configure the SqlSyringe at the end of the pipeline to make sure it does not int
 
   Authentication
   
-  SqlSyringe supports the built-in ASP.NET authentication schemes (implementing, the IPrincipal interface) to gather role and user information for the request. If you have other authentication schemes, you need to implement IPrincipal to have authorization with SqlSyringe. 
+  SqlSyringe supports the built-in ASP.NET authentication schemes (that are implementing the IPrincipal interface) to gather role and user information for the request. When your users belong to a domain, you must prefix the username with the domain name (example: "DOMAIN\\myuser". If you have other authentication schemes, you need to implement IPrincipal to have authentication with SqlSyringe. 
 
   Authorization
   
@@ -152,7 +152,7 @@ private static readonly IHttpModule SqlSyringeModule = new Syringe(new Injection
     FromIp = IPAddress.Parse("8.8.8.8"), 
     ConnectionString = ConfigurationManager.ConnectionStrings["DbConnectionString"].ConnectionString,
     //SqlSyringe authorizes the request for itself when a user with one of the given role and name is authenticated.
-    UserName = "jon.doe@example.com,bob,nancy",
+    UserName = "jon.doe@example.com,bob,DOMAIN\\myuser",
     Role = "database-admin"
 });
 ```

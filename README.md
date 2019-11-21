@@ -158,12 +158,7 @@ private static readonly IHttpModule SqlSyringeModule = new Syringe(new Injection
 ```
 
 ## Demo
-To see SqlSyringe in action you may want to use the [SqlSyringe practice project](https://github.com/suterma/SqlSyringe-Practice)
-
-## Deploy on Azure
-Use this button to automatically deploy this web app as your own Azure App
-
-<a href="https://azuredeploy.net/" target="_blank"><img src="http://azuredeploy.net/deploybutton.png"/></a>
+To see SqlSyringe in action you may want to use the [SqlSyringe .NET core 2.2 practice project](https://github.com/suterma/SqlSyringe.Practice.Core22)
 
 ## Differentiation
 Although named equally, this project is very different from the PHP project "SQL Syringe" by kkoivisto on https://sourceforge.net/projects/sqlsyringe/

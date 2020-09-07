@@ -2,6 +2,8 @@
 
 <img src="https://raw.githubusercontent.com/suterma/SqlSyringe/master/doc/icon.gif" alt="icon" width="100" align="right">
 
+https://www.nuget.org/packages/SqlSyringe/
+
 **USE WITH CAUTION**
 
 SqlSyringe is a SQL database exploration tool, for testing and administration purposes. It allows specific users to directly execute SQL commands to a database.
